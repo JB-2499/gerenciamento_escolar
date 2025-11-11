@@ -1,12 +1,15 @@
 package projeto_prog_ii.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
-import java.util.ArrayList;
 
 @Entity
 @Table
+@Getter
+@Setter
 public class Aluno {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,4 +18,8 @@ public class Aluno {
     private String nome, turma, situacao;
     private int idade;
     private List<Double> notas;
+
+    public Aluno() {
+
+    }
 }
