@@ -40,14 +40,16 @@ public class Aluno {
         Aluno a = new Aluno(nome,idade,matricula,nota);
         alunos.add(a);
     }
-    public void listarAlunos(){
+    public void DadosAlunos(){
         for (Aluno aluno : alunos){
             System.out.println(aluno);
         }
     }
     public void excluirAluno(){
-
+        System.out.printf("Digite o aluno que deseja excluir: ");
+        alunos.remove(sc.nextInt());
     }
+
 
 }
 
