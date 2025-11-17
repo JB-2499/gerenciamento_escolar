@@ -1,55 +1,33 @@
 package projeto_prog_ii.model;
-import java.util.Scanner;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Scanner;
 
 public class Professor {
-
     Scanner sc = new Scanner(System.in);
-    ArrayList<Professor> professores = new ArrayList<>();
-
+    ArrayList<Professor> professor = new ArrayList<Professor>();
     private String nome, materia;
     private int idade;
-    private double nota1, nota2, nota3;
-    private boolean situacao;
-    //Metodos
+
+    Professor(String nome, String materia, int idade) {
+        this.nome = nome;
+        this.materia = materia;
+        this.idade = idade;
+    }
 
     public void CadastroProfessor(){
-
-    }
-
-    public void cadastrarNotas(){
-        System.out.printf("Digite o nome do aluno: ");
+        System.out.println("Digite seu nome: ");
         nome = sc.nextLine();
-
-        System.out.printf("Digite o materia do aluno: ");
+        System.out.println("Digite seu materia: ");
         materia = sc.nextLine();
+        System.out.println("Digite sua idade: ");
+        idade = sc.nextInt();
 
-        System.out.printf("Digite a nota da primeira avaliação do aluno: ");
-        nota1 = sc.nextDouble();
-        sc.nextLine();
-
-        System.out.printf("Digite a nota do aluno: ");
-        nota2 = sc.nextDouble();
-
-        if ((nota1+nota2)/2<7 || nota1+nota2/2>3){
-
-            System.out.println("Digite a nota da final do aluno");
-            nota3 = sc.nextDouble();
-            sc.nextLine();
-
-            if((nota3+((nota1+nota2)/2)/2)>5){
-                situacao = true;
-            }
-            else{
-                situacao = false;
-            }
-            }
-        else if ((nota1+nota2)/2>=7) {
-            situacao = true;
-        }
-        else{
-            situacao = false;
-        }
+        Professor p  = new Professor( nome,  materia, idade);
+        professor.add(p);
     }
+
+
+
+
+
 }
