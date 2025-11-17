@@ -5,17 +5,15 @@ import java.util.Scanner;
 public class Aluno {
 
     private String nome;
-    private int idade,matricula;
-    private double nota;
+    private int idade;
 
     ArrayList<Aluno> alunos = new ArrayList<Aluno>();
     Scanner sc = new Scanner(System.in);
 
-    public Aluno(String nome, int idade, int matricula, double nota) {
+    public Aluno(String nome, int idade) {
         this.nome = nome;
         this.idade = idade;
-        this.matricula = matricula;
-        this.nota = nota;
+
     }
 
     //metodos da classe
@@ -29,15 +27,7 @@ public class Aluno {
         idade = sc.nextInt();
         sc.nextLine();
 
-        System.out.println("Digite o matricula do aluno: ");
-        matricula = sc.nextInt();
-        sc.nextLine();
-
-        System.out.println("Digite a nota do aluno: ");
-        nota = sc.nextDouble();
-        sc.nextLine();
-
-        Aluno a = new Aluno(nome,idade,matricula,nota);
+        Aluno a = new Aluno(nome,idade);
         alunos.add(a);
     }
     public void DadosAlunos(){
@@ -47,7 +37,7 @@ public class Aluno {
     }
     public void excluirAluno(){
         System.out.printf("Digite o aluno que deseja excluir: ");
-        alunos.remove(sc.nextInt());
+        String excluir  = sc.nextLine();
     }
 
 
