@@ -1,5 +1,53 @@
 package projeto_prog_ii.model;
 import java.util.ArrayList;
 import java.util.List;
-public class Aluno {}
+import java.util.Scanner;
+public class Aluno {
+
+    private String nome;
+    private int idade,matricula;
+    private double nota;
+
+    ArrayList<Aluno> alunos = new ArrayList<Aluno>();
+    Scanner sc = new Scanner(System.in);
+
+    public Aluno(String nome, int idade, int matricula, double nota) {
+        this.nome = nome;
+        this.idade = idade;
+        this.matricula = matricula;
+        this.nota = nota;
+    }
+
+    //metodos da classe
+
+    public void cadastrarAluno(){
+
+        System.out.println("Digite o nome do aluno: ");
+        nome = sc.nextLine();
+
+        System.out.println("Digite a idade do aluno: ");
+        idade = sc.nextInt();
+        sc.nextLine();
+
+        System.out.println("Digite o matricula do aluno: ");
+        matricula = sc.nextInt();
+        sc.nextLine();
+
+        System.out.println("Digite a nota do aluno: ");
+        nota = sc.nextDouble();
+        sc.nextLine();
+
+        Aluno a = new Aluno(nome,idade,matricula,nota);
+        alunos.add(a);
+    }
+    public void listarAlunos(){
+        for (Aluno aluno : alunos){
+            System.out.println(aluno);
+        }
+    }
+    public void excluirAluno(){
+
+    }
+
+}
 
