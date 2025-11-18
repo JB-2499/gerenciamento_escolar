@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Professor {
     Scanner sc = new Scanner(System.in);
-    ArrayList<Professor> professor = new ArrayList<Professor>();
+    private ArrayList<Professor> professor = new ArrayList<Professor>();
     private String nome, materia;
     private int idade;
     private double nota1, nota2, nota3;
@@ -22,55 +22,12 @@ public class Professor {
         materia = sc.nextLine();
         System.out.println("Digite sua idade: ");
         idade = sc.nextInt();
-
-        Professor p  = new Professor( nome,  materia, idade);
-        professor.add(p);
-    }
-
-    public void CadastarNotas(String nomeAluno){
-
-        System.out.println("Digite a primeira nota: ");
-        nota1 = sc.nextDouble();
-        sc.nextLine();
-
-        System.out.println("Digite a segunda nota: ");
-        nota2 = sc.nextDouble();
-        sc.nextLine();
-
-        double media = (nota1 + nota2) / 2;
-
-        if (media >= 7){
-             String situacao = "Aprovado";
-            Alunos.add(situacao,);
-            Alunos.add(media);
-        }
-        else if (media<7 || media>3) {
-
-            System.out.println("Digite a nota da final: ");
-            nota3 = sc.nextDouble();
-            sc.nextLine();
-
-            media = ( media + nota3 ) / 2 ;
-
-            if(media < 5){
-                String situacao = "Reprovado"
-                Alunos.add(situacao,);
-                Alunos.add(media);
-            }
-            else{
-                String situacao = "Aprovado";
-                Alunos.add(situacao,);
-                Alunos.add(media);
-            }
-
-        }
-        else{
-            String situacao = "Reprovado";
-            Alunos.add(situacao,);
-            Alunos.add(media);
-        }
-
-
+        professor.add(new Professor( nome,  materia, idade));
 
     }
+    public void removerProfessor(Professor p){
+        professor.remove(p);
+    }
+
+
 }
