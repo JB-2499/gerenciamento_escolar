@@ -25,9 +25,4 @@ public class Professor {
         Professor p  = new Professor( nome,  materia, idade);
         professor.add(p);
     }
-
-
-
-
-
 }
