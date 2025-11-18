@@ -22,11 +22,41 @@ public class Professor {
         materia = sc.nextLine();
         System.out.println("Digite sua idade: ");
         idade = sc.nextInt();
-        professor.add(new Professor( nome,  materia, idade));
+
+        Professor p  = new Professor( nome,  materia, idade);
+        professor.add(p);
 
     }
     public void removerProfessor(Professor p){
         professor.remove(p);
+    }
+    public void alterarProfessor(Professor p){
+
+
+        System.out.println("Digite o nome do professor que deseja alterar: ");
+        String P =  sc.nextLine();
+
+        System.out.println("digite qual dado voce deseja alterar:\n[1] Nome\n[2] Materia\n[3] Idade");
+        String escolha =  sc.nextLine().toLowerCase();
+
+        switch (escolha){
+
+            case "1" , "nome":
+                professor.set(0, p);
+                break;
+
+            case "2" , "materia":
+                professor.set(1, p);
+                break;
+
+            case "3" , "idade":
+                professor.set(2, p);
+                break;
+
+            default:
+                    System.out.println("Ops! opção invalida");
+        }
+
     }
 
 
