@@ -14,18 +14,14 @@ public class Aluno_service {
 
     private int contadorId = 1;
 
-    public int registrarAluno(Aluno aluno){
+    public int registerAluno(Aluno aluno){
         int idGerado = contadorId++;
         alunos.put(idGerado, aluno);
-
-        System.out.println("Aluno registrado com sucesso!\nO Id do aluno é: " + idGerado);
-
         return idGerado;
     }
 
-    public boolean alterAluno(int id, Aluno novosDados) {
+    public boolean updateAluno(int id, Aluno novosDados) {
         if (!this.alunos.containsKey(id)) {
-            System.out.println("Aluno não encontrado");
             return false;
         }
 
@@ -44,7 +40,7 @@ public class Aluno_service {
         return this.alunos.get(id);
     }
 
-    public List<Aluno> listarAlunos() {
+    public List<Aluno> listAlunos() {
         return new ArrayList<>(this.alunos.values());
     }
 }
