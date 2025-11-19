@@ -1,25 +1,29 @@
 package projeto_prog_ii.model;
 
-import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
-
-@Entity
-@Table
-@Getter
-@Setter
 public class Aluno {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @Getter @Setter private String nome, turma;
+    @Getter @ Setter private int idade;
+    @Getter @ Setter private double media;
+    @Getter @ Setter private boolean situacao;
 
-    private String nome, turma, situacao;
-    private int idade;
-    private List<Double> notas;
+    public Aluno(String nome, String turma, int idade, double media, boolean situacao) {
+        this.nome = nome;
+        this.turma = turma;
+        this.idade = idade;
+        this.media = media;
+        this.situacao = situacao;
+    }
 
-    public Aluno() {
-
+    public String situacao() {
+        String situacao = "";
+        if (this.situacao) {
+            situacao = "Aprovado";
+        } else {
+            situacao = "Reprovado";
+        }
+        return "Média do aluno: " + this.media + "\nSituação do aluno: " + situacao;
     }
 }
