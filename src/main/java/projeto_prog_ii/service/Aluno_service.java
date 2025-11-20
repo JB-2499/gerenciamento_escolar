@@ -43,4 +43,13 @@ public class Aluno_service {
     public List<Aluno> listAlunos() {
         return new ArrayList<>(this.alunos.values());
     }
+
+    public boolean deleteAluno(int id){
+        if (!this.alunos.containsKey(id)) {
+            return false;
+        } else {
+            alunos.remove(id);
+            return true;
+        }
+    }
 }

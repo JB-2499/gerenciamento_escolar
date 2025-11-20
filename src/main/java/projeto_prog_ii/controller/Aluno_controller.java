@@ -31,11 +31,22 @@ public class Aluno_controller {
     }
 
     @PutMapping("/{id}")
-    public String updateAluno(@PathVariable int id, @RequestBody Aluno aluno){
+    public String updateAluno(@PathVariable int id, @RequestBody Aluno aluno) {
         boolean alterado = alunoService.updateAluno(id, aluno);
 
         if (alterado) {
             return "Dados do aluno atualizados com sucesso!";
+        } else {
+            return "Aluno não encontrado.";
+        }
+    }
+
+    @DeleteMapping("{/id}")
+    public String deleteAluno(@PathVariable int id) {
+        boolean removido = alunoService.deleteAluno(id);
+
+        if (removido) {
+            return "Aluno removido com sucesso!";
         } else {
             return "Aluno não encontrado.";
         }
