@@ -1,6 +1,8 @@
 package projeto_prog_ii.model;
 import java.util.ArrayList;
 import java.util.Scanner;
+import lombok.Setter;
+import lombok.Getter;
 
 public class Professor {
 
@@ -16,21 +18,9 @@ public class Professor {
         this.idade = idade;
     }
 
-    public void CadastroProfessor(){
-        System.out.println("Digite seu nome: ");
-        nome = sc.nextLine();
-        System.out.println("Digite seu materia: ");
-        materia = sc.nextLine();
-        System.out.println("Digite sua idade: ");
-        idade = sc.nextInt();
+    Professor p  = new Professor(nome,materia,idade);
 
-        Professor p  = new Professor( nome,  materia, idade);
-        professor.add(p);
 
-    }
-    public void removerProfessor(Professor p){
-        professor.remove(p);
-    }
 
 
 }
