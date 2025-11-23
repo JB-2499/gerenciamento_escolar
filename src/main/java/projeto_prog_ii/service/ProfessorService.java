@@ -17,22 +17,21 @@ public class ProfessorService {
         listaProfessores.add(p);
     }
 
-    public String situacaoAluno(double media, double mediaFinal){
-    String situacao;
+    public void situacaoAluno(double media, double mediaFinal){
+        String situacao;
 
     if(media>=7 || mediaFinal>=5){
         situacao="Aprovado";
     }
     else {
-        situacao="Reprovado";
+        situacao = "Reprovado";
     }
-    return situacao;
-
 }
     public double calcularMedia(double nota1, double nota2) {
 
         return (nota1 + nota2) / 2;
     }
+    
     public double calcularMediaFinal(double media, double nota3) {
     return (media + nota3) / 2;
     }

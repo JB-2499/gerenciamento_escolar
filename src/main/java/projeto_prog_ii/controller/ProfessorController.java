@@ -31,16 +31,25 @@ public class ProfessorController {
         Professor p = new Professor(nome, idade, materia);
         service.adicionarProfessor(p);
     }
-    public void inserirNotas(double media, double mediaFinal){
+    public void inserirNotas(){
+
         System.out.println("Digite a primeira nota do aluno");
         double nota1 = sc.nextDouble();
         sc.nextLine();
+
         System.out.println("Digite a segunda nota do aluno");
         double nota2 = sc.nextDouble();
+        sc.nextLine();
+
+        double media = service.calcularMedia(nota1, nota2);
 
         if(media <7 && media >=3){
+
             System.out.println("Digite a nota da final do aluno");
             double nota3 = sc.nextDouble();
+            sc.nextLine();
+
+            service.situacaoAluno(nota3, media);
 
         }
 
