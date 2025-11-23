@@ -1,7 +1,10 @@
 package projeto_prog_ii.service;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.stereotype.Service;
 import projeto_prog_ii.model.Aluno;
+import projeto_prog_ii.model.Professor;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,11 +12,14 @@ import java.util.List;
 import java.util.Map;
 
 @Service
+@Getter@Setter
 public class Aluno_service {
+
     private final Map<Integer, Aluno> alunos = new HashMap<>();
+    private List<Aluno> ListaAluno = new ArrayList<>();
+
 
     private int contadorId = 1;
-
     public int registerAluno(Aluno aluno){
         int idGerado = contadorId++;
         alunos.put(idGerado, aluno);
@@ -51,5 +57,13 @@ public class Aluno_service {
             alunos.remove(id);
             return true;
         }
+    }
+
+    public List<Aluno> getListaAluno() {
+        return ListaAluno;
+    }
+
+    public void setListaAluno(List<Aluno> listaAluno) {
+        ListaAluno = listaAluno;
     }
 }

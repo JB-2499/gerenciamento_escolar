@@ -1,24 +1,9 @@
 package projeto_prog_ii.service;
-
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.stereotype.Service;
-import projeto_prog_ii.model.Professor;
-import java.util.ArrayList;
-import java.util.List;
 @Service
-@Getter @Setter
-
 public class ProfessorService {
+    @Autowired
 
-    private List<Professor> listaProfessores = new ArrayList<>();
-
-    //referente ao próprio professor
-    public void adicionarProfessor(Professor p) {
-        listaProfessores.add(p);
-    }
-
-    //referente a atribuição da nota dos alunos
 
     public double calcularMedia(double nota1, double nota2){
 
@@ -34,4 +19,5 @@ public class ProfessorService {
         if(mediaFinal >= 5) return "Aprovado na Final";
         return "Reprovado";
     }
+
 }
