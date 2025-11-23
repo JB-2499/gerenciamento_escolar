@@ -9,7 +9,7 @@ import projeto_prog_ii.service.ProfessorService;
 import java.util.Scanner;
 
 @Controller @Getter @Setter
-public class ProfessorController extends Professor {
+public class ProfessorController {
 
     Scanner sc = new Scanner(System.in);
 
@@ -28,7 +28,6 @@ public class ProfessorController extends Professor {
 
     }
     public void cadastrarProfessor(String nome,int idade, String materia){
-        setListaProfessor(ListaProfessor().add(nome));
     }
     public void inserirNotas(){
         System.out.println("Digite a primeira nota do aluno");

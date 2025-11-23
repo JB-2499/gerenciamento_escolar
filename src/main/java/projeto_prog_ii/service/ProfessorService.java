@@ -10,7 +10,7 @@ import projeto_prog_ii.model.Professor;
 import java.util.ArrayList;
 
 @Getter @Setter @Service @AllArgsConstructor @NoArgsConstructor
-public class ProfessorService extends Professor{
+public class ProfessorService {
 
     public String situacaoAluno(double media, double mediaFinal){
     String situacao;
