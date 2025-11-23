@@ -1,23 +1,25 @@
 package projeto_prog_ii.controller;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import projeto_prog_ii.model.Professor;
 import projeto_prog_ii.service.ProfessorService;
 
 import java.util.Scanner;
 
-@Controller @Getter @Setter @AllArgsConstructor @NoArgsConstructor
-
-
+@Controller
+@Getter @Setter
 public class ProfessorController {
 
-    Scanner sc = new Scanner(System.in);
+    @Autowired
     private ProfessorService service;
 
-    public void Cadastrar(){
+    private Scanner sc = new Scanner(System.in);
+
+    public void cadastrar(){
         System.out.println("Digite seu nome:");
         String nome = sc.nextLine();
 
@@ -25,38 +27,40 @@ public class ProfessorController {
         int idade = sc.nextInt();
         sc.nextLine();
 
-        System.out.println("Digite sua materia:");
+        System.out.println("Digite sua matéria:");
         String materia = sc.nextLine();
 
         Professor p = new Professor(nome, idade, materia);
         service.adicionarProfessor(p);
+
+        System.out.println("Professor cadastrado\n");
     }
+
     public void inserirNotas(){
 
-        System.out.println("Digite a primeira nota do aluno");
-        double nota1 = sc.nextDouble();
-        sc.nextLine();
+        System.out.println("Digite o nome do aluno:");
+        String nomeAluno = sc.nextLine();
 
-        System.out.println("Digite a segunda nota do aluno");
-        double nota2 = sc.nextDouble();
-        sc.nextLine();
+        System.out.println("Digite a primeira nota:");
+        double n1 = sc.nextDouble();
 
-        double media = service.calcularMedia(nota1, nota2);
+        System.out.println("Digite a segunda nota:");
+        double n2 = sc.nextDouble();
 
-        if(media <7 && media >=3){
+        double media = service.calcularMedia(n1, n2);
 
-            System.out.println("Digite a nota da final do aluno");
-            double nota3 = sc.nextDouble();
-            sc.nextLine();
+        double mediaFinal = media;
 
-            double mediaFinal = service.calcularMedia(nota3, media);
+        if(media < 7 && media >= 3){
+            System.out.println("Digite a nota da final:");
+            double n3 = sc.nextDouble();
 
-            service.situacaoAluno(mediaFinal, media);
-
+            mediaFinal = service.CalcularMediaFinal(media, n3);
         }
 
+        String situacao = service.situacao(media, mediaFinal);
+
+        System.out.println("\nMédia final: " + mediaFinal);
+        System.out.println("Situação: " + situacao);
     }
-
-
-
 }
