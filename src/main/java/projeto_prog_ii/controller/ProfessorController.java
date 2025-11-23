@@ -49,7 +49,9 @@ public class ProfessorController {
             double nota3 = sc.nextDouble();
             sc.nextLine();
 
-            service.situacaoAluno(nota3, media);
+            double mediaFinal = service.calcularMedia(nota3, media);
+
+            service.situacaoAluno(mediaFinal, media);
 
         }
 
