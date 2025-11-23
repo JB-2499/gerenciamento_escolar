@@ -1,49 +1,40 @@
 package projeto_prog_ii.service;
-import lombok.AllArgsConstructor;
+
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import projeto_prog_ii.model.Professor;
-
 import java.util.ArrayList;
+import java.util.List;
 
-@Getter @Setter @Service @AllArgsConstructor @NoArgsConstructor
+@Service
+@Getter @Setter
+
 public class ProfessorService {
+    private List<Professor> listaProfessores =  new ArrayList<>();
+
+    public void adicionarProfessor(Professor p) {
+        listaProfessores.add(p);
+    }
 
     public String situacaoAluno(double media, double mediaFinal){
     String situacao;
 
-    if(media>=7){
+    if(media>=7 || mediaFinal>=5){
         situacao="Aprovado";
     }
-    else if(media < 3){
+    else {
         situacao="Reprovado";
     }
-    else{
-        if (mediaFinal<5){
-            situacao="Reprovado";
-        }
-        else{
-            situacao="Aprovado";
-        }
-    }
     return situacao;
+
 }
     public double calcularMedia(double nota1, double nota2) {
-        return (nota1 + nota2) / 2;
 
+        return (nota1 + nota2) / 2;
     }
     public double calcularMediaFinal(double media, double nota3) {
-
-    if (media < 3 || media >= 7) {
-            return media;
-        }
-    double mediaFinal=(media + nota3) / 2;
-
-    return mediaFinal;
+    return (media + nota3) / 2;
     }
 
-    private ArrayList<Professor> ListaProfessor = new ArrayList<Professor>();
 }
