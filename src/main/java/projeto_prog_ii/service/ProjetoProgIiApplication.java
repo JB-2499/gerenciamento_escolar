@@ -1,4 +1,4 @@
-package projeto_prog_ii;
+package projeto_prog_ii.service;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
