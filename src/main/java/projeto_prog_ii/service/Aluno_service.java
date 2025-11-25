@@ -31,7 +31,7 @@ public class Aluno_service {
         alunoExistente.setIdade(novosDados.getIdade());
         alunoExistente.setTurma(novosDados.getTurma());
         alunoExistente.setMedia(novosDados.getMedia());
-        alunoExistente.setSituacao(novosDados.isSituacao());
+        alunoExistente.setEstado(novosDados.isEstado());
 
         return true;
     }

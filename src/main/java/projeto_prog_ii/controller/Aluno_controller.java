@@ -41,7 +41,7 @@ public class Aluno_controller {
         }
     }
 
-    @DeleteMapping("{/id}")
+    @DeleteMapping("/{id}")
     public String deleteAluno(@PathVariable int id) {
         boolean removido = alunoService.deleteAluno(id);
 
