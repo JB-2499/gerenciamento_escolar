@@ -16,12 +16,12 @@ public class Aluno_controller {
 
     @PostMapping
     public String registerAluno(@RequestBody Aluno aluno){
-        int idGerado = alunoService.registerAluno(aluno);
+        long idGerado = alunoService.registerAluno(aluno);
         return "Aluno registrado com sucesso!\nO ID do aluno é: " + idGerado;
     }
 
     @GetMapping("/{id}")
-    public Aluno searchAluno(@PathVariable int id){
+    public Aluno searchAluno(@PathVariable long id){
         return alunoService.searchAluno(id);
     }
 
@@ -31,7 +31,7 @@ public class Aluno_controller {
     }
 
     @PutMapping("/{id}")
-    public String updateAluno(@PathVariable int id, @RequestBody Aluno aluno) {
+    public String updateAluno(@PathVariable long id, @RequestBody Aluno aluno) {
         boolean alterado = alunoService.updateAluno(id, aluno);
 
         if (alterado) {
@@ -42,7 +42,7 @@ public class Aluno_controller {
     }
 
     @DeleteMapping("/{id}")
-    public String deleteAluno(@PathVariable int id) {
+    public String deleteAluno(@PathVariable long id) {
         boolean removido = alunoService.deleteAluno(id);
 
         if (removido) {
