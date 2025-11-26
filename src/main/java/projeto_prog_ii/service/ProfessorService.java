@@ -1,11 +1,13 @@
 package projeto_prog_ii.service;
 import org.springframework.stereotype.Service;
+import projeto_prog_ii.model.Professor;
+import projeto_prog_ii.repository.ProfessorRepository;
 
 
 @Service
 public class ProfessorService {
 
-
+    private ProfessorRepository professorRepository;
 
     public double CalcularMedia(double nota1, double nota2){
 
@@ -22,4 +24,13 @@ public class ProfessorService {
         return "Reprovado";
     }
 
+    public Professor EncontrarProfessor(String p) {
+
+        for (int i = 0; i < professorRepository.getListaProfessores().size(); i++)
+            if (p.equalsIgnoreCase(professorRepository.getListaProfessores().get(i).getNome())) {
+                return professorRepository.getListaProfessores().get(i);
+            }
+        return  null;
+
+    }
 }

@@ -1,44 +1,23 @@
 package projeto_prog_ii.controller;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import projeto_prog_ii.model.Professor;
-import projeto_prog_ii.repository.ProfessorRepository;
 import projeto_prog_ii.service.ProfessorService;
 
 import java.util.Scanner;
-
-@Controller
+@RestController
+@RequestMapping("/paginaControle")
 public class ProfessorController {
 
-    private final ProfessorRepository professorRepository;
-
+    Scanner sc = new Scanner(System.in);
     @Autowired
-    public ProfessorController(ProfessorService service, ProfessorRepository professorRepository){
+    public ProfessorController(ProfessorService service){
         this.service = service;
-        this.professorRepository = professorRepository;
     }
-
-
     private final ProfessorService service;
 
-    private Scanner sc = new Scanner(System.in);
-    public void cadastrar(){
-        System.out.println("Digite seu nome:");
-        String nome = sc.nextLine();
-
-        System.out.println("Digite sua idade:");
-        int idade = sc.nextInt();
-        sc.nextLine();
-
-        System.out.println("Digite sua matéria:");
-        String materia = sc.nextLine();
-
-        Professor p = new Professor(nome, idade, materia);
-
-        professorRepository.getListaProfessores().add(p);
-
-        System.out.println("Professor cadastrado\n");
-    }
     public void InserirNotas(){
 
         System.out.println("Digite o nome do aluno:");
@@ -71,4 +50,34 @@ public class ProfessorController {
 
 
     }
+
+
+    public void CadastrarProfessor(){
+        System.out.println("Digite seu nome:");
+        String nome = sc.nextLine();
+
+        System.out.println("Digite sua idade:");
+        int idade = sc.nextInt();
+        sc.nextLine();
+
+        System.out.println("Digite sua matéria:");
+        String materia = sc.nextLine();
+
+        Professor p = new Professor(nome, idade, materia);
+
+        service.AdicionarLista(p);
+
+        System.out.println("Professor cadastrado\n");
+    }
+    public void RemoverProfessor(){
+        System.out.println("Digite o nome do professor a ser removido:");
+        service.DeletarDaLista(sc.nextLine());
+    }
+    public void AlterarDadosProfessor(){
+        System.out.println("Digite o nome do professor a ser alterado:");
+        service.EncontrarProfessor(sc.nextLine());
+    }
+
+
+
 }

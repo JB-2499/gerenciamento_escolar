@@ -1,5 +1,4 @@
 package projeto_prog_ii.repository;
-
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Repository;
@@ -14,7 +13,6 @@ import java.util.List;
 public class ProfessorRepository {
 
     private List<Professor> listaProfessores = new ArrayList<>();
-
     public void adicionar(Professor p) {
         listaProfessores.add(p);
 
