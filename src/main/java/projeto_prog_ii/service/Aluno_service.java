@@ -3,10 +3,7 @@ package projeto_prog_ii.service;
 import org.springframework.stereotype.Service;
 import projeto_prog_ii.model.Aluno;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class Aluno_service {
