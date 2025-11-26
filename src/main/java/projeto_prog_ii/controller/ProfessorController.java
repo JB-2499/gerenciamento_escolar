@@ -1,21 +1,27 @@
 package projeto_prog_ii.controller;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
 import projeto_prog_ii.model.Professor;
+import projeto_prog_ii.repository.ProfessorRepository;
 import projeto_prog_ii.service.ProfessorService;
 
 import java.util.Scanner;
 
-@RestController
+@Controller
 public class ProfessorController {
 
+    private final ProfessorRepository professorRepository;
+
     @Autowired
-    public ProfessorController(ProfessorService service){
-        this.service = service; }
-    private ProfessorService service;
+    public ProfessorController(ProfessorService service, ProfessorRepository professorRepository){
+        this.service = service;
+        this.professorRepository = professorRepository;
+    }
+
+
+    private final ProfessorService service;
 
     private Scanner sc = new Scanner(System.in);
-
     public void cadastrar(){
         System.out.println("Digite seu nome:");
         String nome = sc.nextLine();
@@ -29,10 +35,11 @@ public class ProfessorController {
 
         Professor p = new Professor(nome, idade, materia);
 
+        professorRepository.getListaProfessores().add(p);
+
         System.out.println("Professor cadastrado\n");
     }
-
-    public void inserirNotas(){
+    public void InserirNotas(){
 
         System.out.println("Digite o nome do aluno:");
         String nomeAluno = sc.nextLine();
@@ -43,7 +50,7 @@ public class ProfessorController {
         System.out.println("Digite a segunda nota:");
         double nota2 = sc.nextDouble();
 
-        double media = service.calcularMedia(nota1, nota2);
+        double media = service.CalcularMedia(nota1, nota2);
         double mediaFinal = media;
 
 

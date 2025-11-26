@@ -1,11 +1,13 @@
 package projeto_prog_ii.service;
 import org.springframework.stereotype.Service;
+
+
 @Service
 public class ProfessorService {
-    @Autowired
 
 
-    public double calcularMedia(double nota1, double nota2){
+
+    public double CalcularMedia(double nota1, double nota2){
 
         return (nota1 + nota2) / 2;
     }
