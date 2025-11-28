@@ -1,5 +1,8 @@
 package projeto_prog_ii.model;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,8 +11,10 @@ import lombok.Setter;
 
 
 public class Professor {
-
-    String nome, materia;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    private String nome, materia;
     private int idade;
     private double nota1, nota2, nota3;
 
