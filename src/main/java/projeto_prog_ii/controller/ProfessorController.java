@@ -2,6 +2,7 @@ package projeto_prog_ii.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import projeto_prog_ii.model.Professor;
@@ -14,8 +15,8 @@ import java.util.List;
 public class ProfessorController {
 
     @Autowired
-    public ProfessorController(ProfessorService service){
 
+    public ProfessorController(ProfessorService service) {
         this.service = service;
     }
     private final ProfessorService service;
@@ -25,6 +26,11 @@ public class ProfessorController {
     public List<Professor> getProfessores(){
         return service.getProfessores();
 
+    }
+
+    public Professor criarProfessor(@RequestBody Professor professor) {
+
+        return service.save(professor);
     }
 
 
