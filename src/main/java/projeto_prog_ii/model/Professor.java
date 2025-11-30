@@ -1,14 +1,16 @@
 package projeto_prog_ii.model;
-
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Table (name = "Professor_Table")
 
 public class Professor {
     @Id
@@ -17,12 +19,5 @@ public class Professor {
     private String nome, materia;
     private int idade;
     private double nota1, nota2, nota3;
-
-    public Professor(String nome,int idade , String materia) {
-        this.nome = nome;
-        this.materia = materia;
-        this.idade = idade;
-
-    }
 
 }
