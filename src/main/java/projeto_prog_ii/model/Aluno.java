@@ -1,17 +1,18 @@
 package projeto_prog_ii.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
-@Table
+@Table(name = "alunos")
 public class Aluno {
-    @Id private long id;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String nome, turma;
     private int idade;

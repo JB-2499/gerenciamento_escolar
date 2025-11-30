@@ -1,10 +1,12 @@
 package projeto_prog_ii.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import projeto_prog_ii.model.Aluno;
 import projeto_prog_ii.service.Aluno_service;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -15,40 +17,44 @@ public class Aluno_controller {
     private Aluno_service alunoService;
 
     @PostMapping
-    public String registerAluno(@RequestBody Aluno aluno){
-        long idGerado = alunoService.registerAluno(aluno);
-        return "Aluno registrado com sucesso!\nO ID do aluno é: " + idGerado;
+    public ResponseEntity<Aluno> registerAluno(@RequestBody Aluno aluno){
+        Aluno novoAluno = alunoService.registerAluno(aluno);
+
+        return ResponseEntity.created(URI.create("/api/alunos/" + novoAluno.getId())).body(novoAluno);
     }
 
     @GetMapping("/{id}")
-    public Aluno searchAluno(@PathVariable long id){
-        return alunoService.searchAluno(id);
+    public ResponseEntity<Aluno> searchAluno(@PathVariable Long id){
+        Aluno aluno = alunoService.searchAluno(id);
+
+        if (aluno == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(aluno);
     }
 
     @GetMapping
-    public List<Aluno> listAlunos(){
-        return alunoService.listAlunos();
+    public ResponseEntity<List<Aluno>> listAlunos(){
+        return ResponseEntity.ok(alunoService.listAlunos());
     }
 
     @PutMapping("/{id}")
-    public String updateAluno(@PathVariable long id, @RequestBody Aluno aluno) {
+    public ResponseEntity<String> updateAluno(@PathVariable Long id, @RequestBody Aluno aluno) {
         boolean alterado = alunoService.updateAluno(id, aluno);
 
-        if (alterado) {
-            return "Dados do aluno atualizados com sucesso!";
-        } else {
-            return "Aluno não encontrado.";
+        if (!alterado) {
+            return ResponseEntity.notFound().build();
         }
+        return ResponseEntity.ok("Dados do aluno atualizados com sucesso!");
     }
 
     @DeleteMapping("/{id}")
-    public String deleteAluno(@PathVariable long id) {
+    public ResponseEntity<String> deleteAluno(@PathVariable Long id) {
         boolean removido = alunoService.deleteAluno(id);
 
-        if (removido) {
-            return "Aluno removido com sucesso!";
-        } else {
-            return "Aluno não encontrado.";
+        if (!removido) {
+            return ResponseEntity.notFound().build();
         }
+        return ResponseEntity.ok("Aluno removido com sucesso!");
     }
 }

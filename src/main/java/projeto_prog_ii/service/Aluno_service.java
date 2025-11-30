@@ -17,7 +17,7 @@ public class Aluno_service {
         return alunoRepository.save(aluno);
     }
 
-    public boolean updateAluno(long id, Aluno novosDados) {
+    public boolean updateAluno(Long id, Aluno novosDados) {
         Optional<Aluno> optionalAluno = alunoRepository.findById(id);
 
         if (optionalAluno.isPresent()) {
@@ -35,7 +35,7 @@ public class Aluno_service {
         return false;
     }
 
-    public Aluno searchAluno(long id) {
+    public Aluno searchAluno(Long id) {
         return alunoRepository.findById(id).orElse(null);
     }
 
@@ -43,7 +43,7 @@ public class Aluno_service {
         return alunoRepository.findAll();
     }
 
-    public boolean deleteAluno(long id){
+    public boolean deleteAluno(Long id){
         if (alunoRepository.existsById(id)) {
             alunoRepository.deleteById(id);
             return true;
