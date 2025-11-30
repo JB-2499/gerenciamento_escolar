@@ -1,62 +1,54 @@
 package projeto_prog_ii.service;
-
-import lombok.Getter;
-import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import projeto_prog_ii.model.Aluno;
-import projeto_prog_ii.model.Professor;
+import projeto_prog_ii.repository.Aluno_repository;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @Getter@Setter
 public class Aluno_service {
 
-    private final Map<Integer, Aluno> alunos = new HashMap<>();
-    private List<Aluno> ListaAluno = new ArrayList<>();
+    @Autowired
+    private Aluno_repository alunoRepository;
 
-
-    private int contadorId = 1;
-    public int registerAluno(Aluno aluno){
-        int idGerado = contadorId++;
-        alunos.put(idGerado, aluno);
-        return idGerado;
+    public Aluno registerAluno(Aluno aluno){
+        return alunoRepository.save(aluno);
     }
 
-    public boolean updateAluno(int id, Aluno novosDados) {
-        if (!this.alunos.containsKey(id)) {
-            return false;
+    public boolean updateAluno(Long id, Aluno novosDados) {
+        Optional<Aluno> optionalAluno = alunoRepository.findById(id);
+
+        if (optionalAluno.isPresent()) {
+            Aluno aluno = optionalAluno.get();
+
+            aluno.setNome(novosDados.getNome());
+            aluno.setTurma(novosDados.getTurma());
+            aluno.setIdade(novosDados.getIdade());
+            aluno.setMedia(novosDados.getMedia());
+            aluno.setEstado(novosDados.isEstado());
+
+            alunoRepository.save(aluno);
+            return true;
         }
-
-        Aluno alunoExistente = alunos.get(id);
-
-        alunoExistente.setNome(novosDados.getNome());
-        alunoExistente.setIdade(novosDados.getIdade());
-        alunoExistente.setTurma(novosDados.getTurma());
-        alunoExistente.setMedia(novosDados.getMedia());
-        alunoExistente.setSituacao(novosDados.isSituacao());
-
-        return true;
+        return false;
     }
 
-    public Aluno searchAluno(int id){
-        return this.alunos.get(id);
+    public Aluno searchAluno(Long id) {
+        return alunoRepository.findById(id).orElse(null);
     }
 
     public List<Aluno> listAlunos() {
-        return new ArrayList<>(this.alunos.values());
+        return alunoRepository.findAll();
     }
 
-    public boolean deleteAluno(int id){
-        if (!this.alunos.containsKey(id)) {
-            return false;
-        } else {
-            alunos.remove(id);
+    public boolean deleteAluno(Long id){
+        if (alunoRepository.existsById(id)) {
+            alunoRepository.deleteById(id);
             return true;
         }
+        return false;
     }
 
     public List<Aluno> getListaAluno() {
