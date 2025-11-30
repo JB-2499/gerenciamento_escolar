@@ -5,7 +5,7 @@ import projeto_prog_ii.service.ProfessorService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/paginaControle")
+@RequestMapping("/Professor")
 
 public class ProfessorController {
 
@@ -29,6 +29,7 @@ public class ProfessorController {
 
     @DeleteMapping("/{id}")
     public void CeletarProfessor(@PathVariable Long id) {
+
         service.delete(id);
     }
 

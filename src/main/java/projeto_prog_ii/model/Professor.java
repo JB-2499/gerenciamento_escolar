@@ -18,6 +18,5 @@ public class Professor {
     private long id;
     private String nome, materia;
     private int idade;
-    private double nota1, nota2, nota3;
 
 }
