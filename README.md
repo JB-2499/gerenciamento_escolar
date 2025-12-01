@@ -74,7 +74,10 @@ Sinta-se à vontade para sugerir melhorias, reportar *bugs* ou contribuir com c�
 
 Este projeto foi desenvolvido por:
 
-* **JB-2499** - ([Perfil do GitHub](https://github.com/JB-2499))
+* **Felipe Feliciano** - ([Perfil do GitHub](https://github.com/FelipeFelicianoLopes))
+* **Ediene Gomes** - ([Perfil do GitHub](https://github.com/edienegomes))
+* **João Barreto** - ([Perfil do GitHub](https://github.com/JB-2499))
+* **Lucas Albuquerque** - ([Perfil do GitHub](https://github.com/lucas-allb))
 
 ## 📄 Licença
 
