@@ -17,8 +17,6 @@ O sistema permite a gestão das seguintes entidades:
 * **Alunos:** Registro completo dos estudantes, incluindo sua alocação em turmas.
 * **Professores:** Cadastro e informações dos docentes.
 
-*(Se houver mais funcionalidades específicas, como atribuição de notas, horários ou relatórios, adicione-as aqui.)*
-
 ## 🛠️ Tecnologias Utilizadas
 
 * **Linguagem de Programação:** Java
