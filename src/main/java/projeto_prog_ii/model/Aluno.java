@@ -1,11 +1,9 @@
 package projeto_prog_ii.model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "alunos")
 public class Aluno {
@@ -18,6 +16,4 @@ public class Aluno {
     private int idade;
     private boolean estado;
     private double media;
-
-    public Aluno() {}
 }
