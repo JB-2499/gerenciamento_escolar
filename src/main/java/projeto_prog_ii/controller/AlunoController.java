@@ -4,17 +4,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import projeto_prog_ii.model.Aluno;
-import projeto_prog_ii.service.Aluno_service;
+import projeto_prog_ii.service.AlunoService;
 
 import java.net.URI;
 import java.util.List;
 
 @RestController
 @RequestMapping("/alunos")
-public class Aluno_controller {
+public class AlunoController {
 
     @Autowired
-    private Aluno_service alunoService;
+    private AlunoService alunoService;
 
     @PostMapping
     public ResponseEntity<Aluno> registerAluno(@RequestBody Aluno aluno){

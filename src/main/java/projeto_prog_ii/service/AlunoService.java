@@ -3,15 +3,15 @@ package projeto_prog_ii.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import projeto_prog_ii.model.Aluno;
-import projeto_prog_ii.repository.Aluno_repository;
+import projeto_prog_ii.repository.AlunoRepository;
 
 import java.util.*;
 
 @Service
-public class Aluno_service {
+public class AlunoService {
 
     @Autowired
-    private Aluno_repository alunoRepository;
+    private AlunoRepository alunoRepository;
 
     public Aluno registerAluno(Aluno aluno){
         return alunoRepository.save(aluno);
