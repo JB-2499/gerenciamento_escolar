@@ -17,14 +17,14 @@ public class AlunoController {
     private AlunoService alunoService;
 
     @PostMapping
-    public ResponseEntity<Aluno> registerAluno(@RequestBody Aluno aluno){
+    public ResponseEntity<Aluno> registerAluno(@RequestBody Aluno aluno) {
         Aluno novoAluno = alunoService.registerAluno(aluno);
 
         return ResponseEntity.created(URI.create("/api/alunos/" + novoAluno.getId())).body(novoAluno);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Aluno> searchAluno(@PathVariable Long id){
+    public ResponseEntity<Aluno> searchAluno(@PathVariable Long id) {
         Aluno aluno = alunoService.searchAluno(id);
 
         if (aluno == null) {
@@ -34,7 +34,7 @@ public class AlunoController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Aluno>> listAlunos(){
+    public ResponseEntity<List<Aluno>> listAlunos() {
         return ResponseEntity.ok(alunoService.listAlunos());
     }
 
