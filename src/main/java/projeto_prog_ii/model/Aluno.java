@@ -14,13 +14,11 @@ public class Aluno {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nome, turma;
+    private String nome;
     private int idade;
     private boolean estado;
     private double media;
 
-    /*
     @OneToMany(mappedBy = "turma")
     private List<Aluno> alunos;
-    */
 }
