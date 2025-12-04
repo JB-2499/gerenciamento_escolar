@@ -1,7 +1,6 @@
 package projeto_prog_ii.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import projeto_prog_ii.exception.ResourceNotFoundException;
 import projeto_prog_ii.model.Aluno;
@@ -19,11 +18,8 @@ public class AlunoService {
         return alunoRepository.save(aluno);
     }
 
-    public boolean updateAluno(Long id, Aluno novosDados) {
-        Optional<Aluno> optionalAluno = alunoRepository.findById(id);
-
-        if (optionalAluno.isPresent()) {
-            Aluno aluno = optionalAluno.get();
+    public void updateAluno(Long id, Aluno novosDados) {
+            Aluno aluno = alunoRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Mensagem padrão"));
 
             aluno.setNome(novosDados.getNome());
             aluno.setIdade(novosDados.getIdade());
@@ -31,9 +27,6 @@ public class AlunoService {
             aluno.setEstado(novosDados.isEstado());
 
             alunoRepository.save(aluno);
-            return true;
-        }
-        return false;
     }
 
     public Aluno searchAluno(Long id) {
@@ -44,11 +37,10 @@ public class AlunoService {
         return alunoRepository.findAll();
     }
 
-    public boolean deleteAluno(Long id) {
-        if (alunoRepository.existsById(id)) {
-            alunoRepository.deleteById(id);
-            return true;
+    public void deleteAluno(Long id) {
+        if (!alunoRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Mensagem padrão");
         }
-        return false;
+        alunoRepository.deleteById(id);
     }
 }

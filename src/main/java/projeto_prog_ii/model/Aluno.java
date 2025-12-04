@@ -1,13 +1,10 @@
 package projeto_prog_ii.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 
-/*
 import java.util.List;
-*/
 
 @Data
 @Entity
@@ -31,8 +28,6 @@ public class Aluno {
     @DecimalMax(value = "10.0", message = "A média máxima é 10.")
     private double media;
 
-    /*
     @OneToMany(mappedBy = "turma")
     private List<Aluno> alunos;
-     */
 }

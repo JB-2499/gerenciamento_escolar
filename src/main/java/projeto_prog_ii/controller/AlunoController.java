@@ -27,10 +27,6 @@ public class AlunoController {
     @GetMapping("/{id}")
     public ResponseEntity<Aluno> searchAluno(@PathVariable Long id) {
         Aluno aluno = alunoService.searchAluno(id);
-
-        if (aluno == null) {
-            return ResponseEntity.notFound().build();
-        }
         return ResponseEntity.ok(aluno);
     }
 
@@ -41,21 +37,13 @@ public class AlunoController {
 
     @PutMapping("/{id}")
     public ResponseEntity<String> updateAluno(@PathVariable Long id, @Valid @RequestBody Aluno aluno) {
-        boolean alterado = alunoService.updateAluno(id, aluno);
-
-        if (!alterado) {
-            return ResponseEntity.notFound().build();
-        }
+        alunoService.updateAluno(id, aluno);
         return ResponseEntity.ok("Dados do aluno atualizados com sucesso!");
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteAluno(@PathVariable Long id) {
-        boolean removido = alunoService.deleteAluno(id);
-
-        if (!removido) {
-            return ResponseEntity.notFound().build();
-        }
+        alunoService.deleteAluno(id);
         return ResponseEntity.ok("Aluno removido com sucesso!");
     }
 }

@@ -29,5 +29,4 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.badRequest().body("Erro! " + erro);
     }
-
 }
