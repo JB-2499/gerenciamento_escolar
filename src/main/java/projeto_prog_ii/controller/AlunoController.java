@@ -1,6 +1,7 @@
 package projeto_prog_ii.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import projeto_prog_ii.model.Aluno;
@@ -9,15 +10,15 @@ import projeto_prog_ii.service.AlunoService;
 import java.net.URI;
 import java.util.List;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/alunos")
 public class AlunoController {
 
-    @Autowired
-    private AlunoService alunoService;
+    private final AlunoService alunoService;
 
     @PostMapping
-    public ResponseEntity<Aluno> registerAluno(@RequestBody Aluno aluno) {
+    public ResponseEntity<Aluno> registerAluno(@Valid @RequestBody Aluno aluno) {
         Aluno novoAluno = alunoService.registerAluno(aluno);
 
         return ResponseEntity.created(URI.create("/api/alunos/" + novoAluno.getId())).body(novoAluno);
@@ -39,7 +40,7 @@ public class AlunoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateAluno(@PathVariable Long id, @RequestBody Aluno aluno) {
+    public ResponseEntity<String> updateAluno(@PathVariable Long id, @Valid @RequestBody Aluno aluno) {
         boolean alterado = alunoService.updateAluno(id, aluno);
 
         if (!alterado) {

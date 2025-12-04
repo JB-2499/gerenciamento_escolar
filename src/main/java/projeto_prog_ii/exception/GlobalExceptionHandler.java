@@ -2,6 +2,7 @@ package projeto_prog_ii.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -16,13 +17,17 @@ public class GlobalExceptionHandler {
           return new ResponseEntity<>("Erro! Recurso não encontrado.\nCódigo do erro: 404\nHorário e data: " + now, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<String> handleIllegalArgumentException() {
-        return new ResponseEntity<>("Erro! Entrada inválida, verifique se \nos dados foram digitados corretamente", HttpStatus.BAD_REQUEST);
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<String> handleValidationExceptions(MethodArgumentNotValidException ex) {
+
+        String erro = ex.getBindingResult()
+                .getFieldErrors()
+                .stream()
+                .map(err -> err.getField() + ": " + err.getDefaultMessage())
+                .findFirst()
+                .orElse("Erro de validação.");
+
+        return ResponseEntity.badRequest().body("Erro! " + erro);
     }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> handleException() {
-        return new ResponseEntity<>("Ocorreu um erro interno no servidor.", HttpStatus.INTERNAL_SERVER_ERROR);
-    }
 }
