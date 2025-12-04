@@ -17,8 +17,8 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException ex) {
-        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    public ResponseEntity<String> handleIllegalArgumentException() {
+        return new ResponseEntity<>("Erro! Entrada inválida, verifique se \nos dados foram digitados corretamente", HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(Exception.class)

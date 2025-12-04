@@ -25,7 +25,6 @@ public class AlunoService {
             Aluno aluno = optionalAluno.get();
 
             aluno.setNome(novosDados.getNome());
-            aluno.setTurma(novosDados.getTurma());
             aluno.setIdade(novosDados.getIdade());
             aluno.setMedia(novosDados.getMedia());
             aluno.setEstado(novosDados.isEstado());
