@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor //gera o construtor normalmente
@@ -19,15 +21,4 @@ public class Turma {
 
     private String nome;
     private int quantiaAluno;
-    //Tipo de relacionamento com a classe professor
-    @ManyToMany
-    @JoinTable(
-            name = "turma_professor",
-            joinColumns = @JoinColumn(name = "turma_id"),
-            inverseJoinColumns = @JoinColumn(name = "professor_id")
-    )
-    private List<Professor> professores;
-    //Tipo de relacionamento com a classe aluno
-    @OneToMany(mappedBy = "turma")
-    private List<Aluno> alunos;
 }
