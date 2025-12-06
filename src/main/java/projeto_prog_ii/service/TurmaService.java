@@ -10,7 +10,6 @@ import projeto_prog_ii.repository.AlunoRepository;
 import projeto_prog_ii.repository.TurmaRepository;
 import java.util.List;
 
-//Fica toda a lógica do projeto
 @Service
 @RequiredArgsConstructor
 public class TurmaService {
@@ -49,7 +48,6 @@ public class TurmaService {
         Turma turma = verificarTurma(id);
         turmaRepository.delete(turma);
     }
-
     //Calcula média geral da turma
     public double calcularMediaTurma(Long turmaId) {
         Turma turma = verificarTurma(turmaId);
@@ -67,6 +65,10 @@ public class TurmaService {
     @Transactional
     public void atualizarQuantiAluno(Turma turma){
         int total = turma.getAlunos() == null ? 0 : turma.getAlunos().size();
+
+        if (total < 20 || total > 40){
+            throw new IllegalArgumentException("A turma deve ter entre 20 e 40 alunos.");
+        }
         turma.setQuantiaAluno(total);
         turmaRepository.save(turma);
     }
@@ -84,7 +86,6 @@ public class TurmaService {
         Turma turma= verificarTurma(turmaId_);
         return turma.getAlunos() == null ? 0 : turma.getAlunos().size();
     }
-
     /*
     //Pesquisa professor por id dentro da turma
     @Transactional

@@ -41,7 +41,7 @@ public class TurmaController {
     public ResponseEntity<Turma> atualizarTurma(
             @PathVariable Long id,
             @Valid  @RequestBody Turma turma) {
-        Turma atualizado = turmaService.atualizarTurma(id, atualizarTurma());
+        Turma atualizado = turmaService.atualizarTurma(id, turma);
         return ResponseEntity.ok(atualizado);
     }
     //Deletar
@@ -59,7 +59,7 @@ public class TurmaController {
     public ResponseEntity<Aluno> pesquisarAluno(
             @PathVariable Long turmaId,
             @PathVariable Long alunosId) {
-        return ResponseEntity.ok(turmaService.pesquisarAlunoTurma(turmaId, alunoId));
+        return ResponseEntity.ok(turmaService.pesquisarAlunoTurma(turmaId, alunosId));
     }
     //Pesquisar professor
     /*@GetMapping("/{turmaId}/professores/{professorId}")
@@ -72,7 +72,6 @@ public class TurmaController {
     @GetMapping("/{turmaId}/total-alunos")
     public ResponseEntity<Integer> totalAlunos(
             @PathVariable Long turmaId){
-        return ResponseEntity.ok((turmaService.contarAlunos(turmaId));
+        return ResponseEntity.ok(turmaService.contarAlunos(turmaId));
     }
-
 }
