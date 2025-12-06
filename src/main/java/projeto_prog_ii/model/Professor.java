@@ -1,5 +1,4 @@
 package projeto_prog_ii.model;
-
 import jakarta.persistence.*;
 import lombok.*;
 import jakarta.validation.constraints.*;
