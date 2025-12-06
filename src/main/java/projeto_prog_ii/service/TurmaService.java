@@ -19,11 +19,38 @@ public class TurmaService {
     //private final ProfessorRepository professorRepository;
     private final AlunoRepository alunoRepository;
 
+    //Vericação de existência
     private Turma verificarTurma(Long id){
         return turmaRepository.findById(id)
                 .orElseThrow(()-> new ResourceNotFoundException("Turma não encontrada!"));
     }
-    //Método para calcular a média geral da turma
+    //Criando turma
+    public Turma criarTurma(Turma turma){
+        return turmaRepository.save(turma);
+    }
+    //Lista todas as turmas
+    public List<Turma>listarTurmas(){
+        return turmaRepository.findAll();
+    }
+    //Busca por id
+    public Turma buscarTurma(Long id){
+        return verificarTurma(id);
+    }
+    @Transactional
+    public Turma atualizarTurma(Long id, Turma turmaAtualizada){
+        Turma turmaExistente = verificarTurma(id);
+        turmaExistente.setNome(turmaAtualizada.getNome());
+        turmaExistente.setAlunos(turmaAtualizada.getAlunos());
+        return turmaRepository.save(turmaExistente);
+    }
+    //Deletar turma
+    @Transactional
+    public void deletarTurma(Long id){
+        Turma turma = verificarTurma(id);
+        turmaRepository.delete(turma);
+    }
+
+    //Calcula média geral da turma
     public double calcularMediaTurma(Long turmaId) {
         Turma turma = verificarTurma(turmaId);
         List<Aluno> alunos = turma.getAlunos();
@@ -53,8 +80,15 @@ public class TurmaService {
                 .findFirst()
                 .orElseThrow(()-> new ResourceNotFoundException("Aluno não identificado nesta turma!"));
     }
+    public int contarAlunos(Long turmaId_){
+        Turma turma= verificarTurma(turmaId_);
+        return turma.getAlunos() == null ? 0 : turma.getAlunos().size();
+    }
+
+    /*
     //Pesquisa professor por id dentro da turma
-    /*public Professor pesquisarProfessorTurma(Long turmaId, Long professorId){
+    @Transactional
+    public Professor pesquisarProfessorTurma(Long turmaId, Long professorId){
         Turma turma = verificarTurma(turmaId);
         //Se atentar ao relacionamento - corrigir para professores ápos o merge com Felipe
         return turma.getProfessor().stream() //stream - fluxo de dados que é criado a partir de uma coleção
