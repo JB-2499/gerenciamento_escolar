@@ -12,7 +12,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/alunos")
+@RequestMapping("/Alunos")
 public class AlunoController {
 
     private final AlunoService alunoService;
@@ -21,7 +21,7 @@ public class AlunoController {
     public ResponseEntity<Aluno> registerAluno(@Valid @RequestBody Aluno aluno) {
         Aluno novoAluno = alunoService.registerAluno(aluno);
 
-        return ResponseEntity.created(URI.create("/api/alunos/" + novoAluno.getId())).body(novoAluno);
+        return ResponseEntity.created(URI.create("/Alunos" + novoAluno.getId())).body(novoAluno);
     }
 
     @GetMapping("/{id}")
