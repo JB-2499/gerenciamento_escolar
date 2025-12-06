@@ -4,11 +4,10 @@ import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 import projeto_prog_ii.model.Professor;
 import projeto_prog_ii.service.ProfessorService;
-
 import java.util.List;
 
 @RestController
-@RequestMapping("/Professores")
+@RequestMapping("/Tb_Professor")
 public class ProfessorController {
 
     private final ProfessorService service;
