@@ -15,7 +15,7 @@ public class AlunoService {
 
     private final AlunoRepository alunoRepository;
 
-    public Aluno registerAluno(Aluno aluno){
+    public Aluno createAluno(Aluno aluno){
         return alunoRepository.save(aluno);
     }
 
@@ -30,7 +30,7 @@ public class AlunoService {
             alunoRepository.save(aluno);
     }
 
-    public Aluno searchAluno(Long id) {
+    public Aluno readAluno(Long id) {
         return alunoRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Mensagem interna, não visível ao usuário."));
     }
 

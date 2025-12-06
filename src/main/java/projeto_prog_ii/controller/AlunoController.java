@@ -19,15 +19,15 @@ public class AlunoController {
     private final AlunoService alunoService;
 
     @PostMapping
-    public ResponseEntity<Aluno> registerAluno(@Valid @RequestBody Aluno aluno) {
-        Aluno novoAluno = alunoService.registerAluno(aluno);
+    public ResponseEntity<Aluno> createAluno(@Valid @RequestBody Aluno aluno) {
+        Aluno novoAluno = alunoService.createAluno(aluno);
 
         return ResponseEntity.created(URI.create("/Tb_Aluno" + novoAluno.getId())).body(novoAluno);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Aluno> searchAluno(@PathVariable Long id) {
-        Aluno aluno = alunoService.searchAluno(id);
+    public ResponseEntity<Aluno> readAluno(@PathVariable Long id) {
+        Aluno aluno = alunoService.readAluno(id);
         return ResponseEntity.ok(aluno);
     }
 
