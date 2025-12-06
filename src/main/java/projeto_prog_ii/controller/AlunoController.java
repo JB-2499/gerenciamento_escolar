@@ -4,7 +4,9 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import projeto_prog_ii.model.Aluno;
 import projeto_prog_ii.service.AlunoService;
+
 
 import java.net.URI;
 import java.util.List;
