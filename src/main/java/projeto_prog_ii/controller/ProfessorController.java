@@ -18,25 +18,26 @@ public class ProfessorController {
 
     @GetMapping
     public List<Professor> ReadAllProfessor() {
-        return service.getProfessores();
+        return service.lerProfessores();
     }
+
     @GetMapping
     public Professor ReadProfessor(@RequestParam long id) {
-        return service.search(id);
+        return service.pesquisaProfessores(id);
     }
 
     @PostMapping
     public Professor createProfessor(@Valid @RequestBody Professor professor) {
-        return service.save(professor);
+        return service.criarProfessores(professor);
     }
 
     @PutMapping("/{id}")
     public Professor updateProfessor(@PathVariable Long id, @Valid @RequestBody Professor professor) {
-        return service.update(id, professor);
+        return service.atualizarProfessores(id, professor);
     }
 
     @DeleteMapping("/{id}")
     public void deleteProfessor(@PathVariable Long id) {
-        service.delete(id);
+        service.deletar(id);
     }
 }
