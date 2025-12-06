@@ -17,12 +17,16 @@ public class ProfessorController {
     }
 
     @GetMapping
-    public List<Professor> listProfessores() {
+    public List<Professor> ReadAllProfessor() {
         return service.getProfessores();
+    }
+    @GetMapping
+    public Professor ReadProfessor(@RequestParam long id) {
+        return service.search(id);
     }
 
     @PostMapping
-    public Professor registerProfessor(@Valid @RequestBody Professor professor) {
+    public Professor createProfessor(@Valid @RequestBody Professor professor) {
         return service.save(professor);
     }
 

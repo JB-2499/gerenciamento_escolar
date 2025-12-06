@@ -18,7 +18,10 @@ public class ProfessorService {
     public Professor save(Professor professor){
         return professorRepository.save(professor);
     }
-
+    public Professor search(Long id) {
+        return professorRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Professor não encontrado"));
+    }
     public List<Professor> getProfessores() {
         return professorRepository.findAll();
     }
