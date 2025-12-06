@@ -2,14 +2,12 @@ package projeto_prog_ii.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import java.util.List;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Data
 @Entity
 @Table(name = "Tb_Aluno")
@@ -32,6 +30,11 @@ public class Aluno {
     @DecimalMax(value = "10.0", message = "A média máxima é 10.")
     private double media;
 
-    @OneToMany(mappedBy = "turma")
-    private List<Aluno> alunos;
+    /*
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "turma_id")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    Private Turma turma
+    */
 }
