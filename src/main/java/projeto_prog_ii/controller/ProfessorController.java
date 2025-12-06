@@ -8,7 +8,7 @@ import projeto_prog_ii.service.ProfessorService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/Professores")
+@RequestMapping("/Tb_Professor")
 public class ProfessorController {
 
     private final ProfessorService service;
