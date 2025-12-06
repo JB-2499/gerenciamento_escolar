@@ -2,13 +2,17 @@ package projeto_prog_ii.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
 @Entity
-@Table(name = "Alunos")
+@Table(name = "TB_Aluno")
 public class Aluno {
 
     @Id
