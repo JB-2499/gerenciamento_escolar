@@ -11,28 +11,32 @@ import java.util.List;
 public class ProfessorController {
 
     private final ProfessorService service;
-
     public ProfessorController(ProfessorService service) {
         this.service = service;
     }
 
     @GetMapping
-    public List<Professor> listProfessores() {
-        return service.getProfessores();
+    public List<Professor> ReadAllProfessor() {
+        return service.lerProfessores();
+    }
+
+    @GetMapping("/{id}")
+    public Professor ReadProfessor(@PathVariable long id) {
+        return service.pesquisaProfessores(id);
     }
 
     @PostMapping
-    public Professor registerProfessor(@Valid @RequestBody Professor professor) {
-        return service.save(professor);
+    public Professor createProfessor(@Valid @RequestBody Professor professor) {
+        return service.criarProfessores(professor);
     }
 
     @PutMapping("/{id}")
     public Professor updateProfessor(@PathVariable Long id, @Valid @RequestBody Professor professor) {
-        return service.update(id, professor);
+        return service.atualizarProfessores(id, professor);
     }
 
     @DeleteMapping("/{id}")
     public void deleteProfessor(@PathVariable Long id) {
-        service.delete(id);
+        service.deletar(id);
     }
 }

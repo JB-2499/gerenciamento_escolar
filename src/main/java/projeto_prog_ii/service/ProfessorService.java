@@ -15,15 +15,18 @@ public class ProfessorService {
         this.professorRepository = professorRepository;
     }
 
-    public Professor save(Professor professor){
+    public Professor criarProfessores(Professor professor){
         return professorRepository.save(professor);
     }
-
-    public List<Professor> getProfessores() {
+    public Professor pesquisaProfessores(Long id) {
+        return professorRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Professor não encontrado"));
+    }
+    public List<Professor> lerProfessores() {
         return professorRepository.findAll();
     }
 
-    public Professor update(Long id, Professor professorAtualizado) {
+    public Professor atualizarProfessores(Long id, Professor professorAtualizado) {
         Professor existente = professorRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Professor não encontrado"));
 
@@ -33,8 +36,7 @@ public class ProfessorService {
 
         return professorRepository.save(existente);
     }
-
-    public void delete(Long id){
+    public void deletar(Long id){
         professorRepository.deleteById(id);
     }
 }
