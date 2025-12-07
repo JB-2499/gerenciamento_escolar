@@ -40,4 +40,5 @@ public class ProfessorService {
     public void delete(Long id){
         professorRepository.deleteById(id);
     }
+//CRUD
 }
