@@ -1,5 +1,8 @@
 package projeto_prog_ii.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.Data;
@@ -11,6 +14,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "Tb_Aluno")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Aluno {
 
     @Id
@@ -31,10 +35,11 @@ public class Aluno {
     private double media;
 
     /*
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "turma_id")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    Private Turma turma
+    @JsonBackReference
+    private Turma turma;
     */
 }
