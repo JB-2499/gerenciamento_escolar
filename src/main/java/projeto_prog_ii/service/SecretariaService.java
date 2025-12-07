@@ -47,9 +47,6 @@ public class SecretariaService {
         aluno.setTurma(destino);
 
         turmaService.updateTurma(origem.getId(), origem);
-        turmaService.updateTurma(origem.getId(), destino);
-
-        turmaService.updateTurma(origem.getId(), origem);
         turmaService.updateTurma(destino.getId(), destino);
 
         return "transferência do(a) aluno(a) realizada com sucesso";
@@ -69,6 +66,7 @@ public class SecretariaService {
         turmaService.salvarTurma(turma);
 
         return turma;
+
     }
 
     public Turma createTurma(Turma turma){
