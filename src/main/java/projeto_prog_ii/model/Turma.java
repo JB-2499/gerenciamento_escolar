@@ -1,5 +1,8 @@
 package projeto_prog_ii.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -11,6 +14,9 @@ import java.util.List;
 @Data
 @Entity
 @Table (name = "Tb_Turma")
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class Turma {
 
     @Id
@@ -26,7 +32,7 @@ public class Turma {
     private int quantidadeProfessor;
 
     //Tipo de relacionamento com a classe professor
-    @ManyToMany
+    @ManyToMany (fetch = FetchType.EAGER)
     @JoinTable(
             name = "tb_turma_professor",
             joinColumns = @JoinColumn(name = "turma_id"),
@@ -37,6 +43,7 @@ public class Turma {
     //Tipo de relacionamento com a classe aluno
     @OneToMany(mappedBy = "turma", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
+    @JsonManagedReference
     @EqualsAndHashCode.Exclude
     private List<Aluno> alunos = new ArrayList<>();
 }

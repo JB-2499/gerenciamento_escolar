@@ -24,7 +24,7 @@ public class TurmaController {
     //Cria turma
     @PostMapping
     public ResponseEntity<Turma> createTurma(@Valid  @RequestBody Turma turma) {
-        Turma nova = turmaService.createTurma(turma); //Falta criar esse método
+        Turma nova = turmaService.createTurma(turma);
         return ResponseEntity.ok(nova);
     }
     //Buscar turma
