@@ -1,15 +1,10 @@
 package projeto_prog_ii.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
-
-import java.util.List;
 
 @Data
 @Entity
