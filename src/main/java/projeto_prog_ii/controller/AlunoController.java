@@ -31,8 +31,8 @@ public class AlunoController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Aluno>> readAllAlunos() {
-        return ResponseEntity.ok(alunoService.listAlunos());
+    public ResponseEntity<List<Aluno>> readAluno() {
+        return ResponseEntity.ok(alunoService.readAluno());
     }
 
     @PutMapping("/{id}")
