@@ -30,11 +30,11 @@ public class Aluno {
     @DecimalMax(value = "10.0", message = "A média máxima é 10.")
     private double media;
 
-    /*
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "turma_id")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    Private Turma turma
-    */
+    private Turma turma;
+
 }
