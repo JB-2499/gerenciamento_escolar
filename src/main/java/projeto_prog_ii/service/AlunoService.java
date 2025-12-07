@@ -34,7 +34,7 @@ public class AlunoService {
         return alunoRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Mensagem interna, não visível ao usuário."));
     }
 
-    public List<Aluno> listAlunos() {
+    public List<Aluno> readAluno() {
         return alunoRepository.findAll();
     }
 
