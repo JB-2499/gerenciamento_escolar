@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -31,8 +32,9 @@ public class Turma {
             inverseJoinColumns = @JoinColumn(name = "professor_id")
     )
     private List<Professor> professores;*/
-
     //Tipo de relacionamento com a classe aluno
-    @OneToMany(mappedBy = "turma")
-    private List<Aluno> alunos;
+    @OneToMany(mappedBy = "turma", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private List<Aluno> alunos = new ArrayList<>();
 }
