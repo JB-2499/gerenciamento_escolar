@@ -17,7 +17,7 @@ public class ProfessorService {
     public Professor createProfessores(Professor professor){
         return professorRepository.save(professor);
     }
-    public Professor pesquisaProfessores(Long id) {
+    public Professor readProfessores(Long id) {
         return professorRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Professor não encontrado"));
     }

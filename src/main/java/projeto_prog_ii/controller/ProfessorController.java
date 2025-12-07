@@ -22,7 +22,7 @@ public class ProfessorController {
 
     @GetMapping("/{id}")
     public Professor readProfessor(@PathVariable long id) {
-        return service.pesquisaProfessores(id);
+        return service.readProfessores(id);
     }
 
     @PostMapping
