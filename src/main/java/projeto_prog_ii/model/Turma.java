@@ -32,13 +32,10 @@ public class Turma {
     private int quantidadeProfessor;
 
     //Tipo de relacionamento com a classe professor
-    @ManyToMany (fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "tb_turma_professor",
-            joinColumns = @JoinColumn(name = "turma_id"),
-            inverseJoinColumns = @JoinColumn(name = "professor_id")
-    )
-    private List<Professor> professores = new ArrayList<>();
+    @ManyToOne (fetch = FetchType.EAGER)
+    @JoinColumn(name = "professor_id")
+
+    private Professor professor;
 
     //Tipo de relacionamento com a classe aluno
     @OneToMany(mappedBy = "turma", cascade = CascadeType.ALL, orphanRemoval = true)

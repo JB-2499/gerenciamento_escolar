@@ -30,6 +30,8 @@ public class Professor {
     @Max(value = 99, message = "A idade máxima é 99.")
     private int idade;
 
-    @ManyToMany(mappedBy = "professores", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "professor", cascade = CascadeType.ALL)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private List<Turma> turmas = new ArrayList<>();
 }
