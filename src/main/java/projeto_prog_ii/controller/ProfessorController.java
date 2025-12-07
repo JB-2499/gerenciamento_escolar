@@ -11,7 +11,6 @@ import java.util.List;
 public class ProfessorController {
 
     private final ProfessorService service;
-
     public ProfessorController(ProfessorService service) {
         this.service = service;
     }
@@ -21,8 +20,8 @@ public class ProfessorController {
         return service.lerProfessores();
     }
 
-    @GetMapping
-    public Professor ReadProfessor(@RequestParam long id) {
+    @GetMapping("/{id}")
+    public Professor ReadProfessor(@PathVariable long id) {
         return service.pesquisaProfessores(id);
     }
 
