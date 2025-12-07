@@ -14,7 +14,9 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "Tb_Aluno")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class Aluno {
 
     @Id
@@ -34,9 +36,7 @@ public class Aluno {
     @DecimalMax(value = "10.0", message = "A média máxima é 10.")
     private double media;
 
-    /*
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "turma_id")
     private Turma turma;
-    */
 }

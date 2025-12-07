@@ -1,18 +1,17 @@
 package projeto_prog_ii.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import projeto_prog_ii.exception.ResourceNotFoundException;
 import projeto_prog_ii.model.Aluno;
 import projeto_prog_ii.repository.AlunoRepository;
+
 import java.util.*;
 
 @RequiredArgsConstructor
 @Service
 public class AlunoService {
 
-    @Autowired
     private final AlunoRepository alunoRepository;
 
     public Aluno createAluno(Aluno aluno){

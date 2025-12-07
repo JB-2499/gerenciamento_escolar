@@ -24,7 +24,7 @@ public class TurmaController {
     //Cria turma
     @PostMapping
     public ResponseEntity<Turma> createTurma(@Valid  @RequestBody Turma turma) {
-        Turma nova = turmaService.createTurma(turma); //Falta criar esse método
+        Turma nova = turmaService.createTurma(turma);
         return ResponseEntity.ok(nova);
     }
     //Buscar turma
@@ -62,13 +62,7 @@ public class TurmaController {
             @PathVariable Long alunoId) {
         return ResponseEntity.ok(turmaService.searchAlunoTurma(turmaId, alunoId));
     }
-    //Pesquisar professor
-    @GetMapping("/{turmaId}/professores/{professorId}")
-    public ResponseEntity<Professor> pesquisarProfessorTurma(
-            @PathVariable Long turmaId,
-            @PathVariable Long professorId){
-        return ResponseEntity.ok(turmaService.pesquisarProfessorTurma(turmaId, professorId));
-    }
+
     //Total de alunos
     @GetMapping("/{turmaId}/total-alunos")
     public ResponseEntity<Integer> totalAlunos(
@@ -82,17 +76,15 @@ public class TurmaController {
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("/{id}/atualizar-quantidade-professor")
-    public ResponseEntity<Void> atualizarQuantidadeProfessor(@PathVariable Long id){
-        Turma turma = turmaService.buscarTurma(id);
-        turmaService.atualizarQuantidadeProfessores(turma);
-        turmaService.salvarTurma(turma);
-        return ResponseEntity.noContent().build();
+    //Consultar professor
+    @GetMapping("/{turmaId}/professor")
+    public ResponseEntity<Professor> getProfessor(@PathVariable Long turmaId){
+        Turma turma = turmaService.buscarTurma(turmaId);
+        return ResponseEntity.ok(turma.getProfessor());
     }
 
     @GetMapping("/{turmaId}/total-professores")
     public ResponseEntity<Integer> totalProfessores(@PathVariable Long turmaId){
-        Turma turma = turmaService.buscarTurma(turmaId);
-        return ResponseEntity.ok(turma.getProfessores() == null ? 0: turma.getProfessores().size());
+        return ResponseEntity.ok(turmaService.contarProfessor(turmaId));
     }
 }

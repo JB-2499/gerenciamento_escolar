@@ -1,4 +1,7 @@
 package projeto_prog_ii.model;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.*;
 import jakarta.validation.constraints.*;
@@ -8,6 +11,9 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "Tb_Professor")
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class Professor {
 
     @Id
@@ -24,7 +30,7 @@ public class Professor {
     @Max(value = 99, message = "A idade máxima é 99.")
     private int idade;
 
-    @ManyToMany(mappedBy = "professores")
+    @OneToMany(mappedBy = "professor", cascade = CascadeType.ALL)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private List<Turma> turmas = new ArrayList<>();

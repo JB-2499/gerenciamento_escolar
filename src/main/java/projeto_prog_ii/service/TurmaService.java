@@ -33,12 +33,14 @@ public class TurmaService {
         if (turma.getAlunos() != null){
             turma.getAlunos().forEach(aluno -> aluno.setTurma(turma));
         }
-        if (turma.getProfessores() != null){
-            turma.getProfessores().forEach(professor -> professor.getTurmas().add(turma));
+        if (turma.getProfessor() != null){
+            turma.getProfessor().getTurmas().add(turma);
+            turma.setQuantidadeProfessor(1);
+        }else{
+            turma.setQuantidadeProfessor(0);
         }
 
         atualizarQuantidadeAlunos(turma);
-        atualizarQuantidadeProfessores(turma);
 
         return turmaRepository.save(turma);
     }
@@ -55,44 +57,22 @@ public class TurmaService {
 
     private void validarQuantidadeAluno(Turma turma) {
         int quanti = turma.getAlunos() == null ? 0: turma.getAlunos().size();
-        if (quanti < 20 || quanti > 40){
-            throw new IllegalArgumentException("Quantidade invalida!");
+        if (quanti < 10 || quanti > 40){
+            throw new IllegalArgumentException("Quantidade de alunos invalida!");
         }
-    }
-    private void validarQuantidadeProfessores(Turma turma) {
-        int total = turma.getProfessores() == null ? 0 : turma.getProfessores().size();
-        if (total < 1 || total > 4){
-            throw new IllegalArgumentException("Quantidade de Professores invalida!");
-        }
-    }
-
-    private <G> int contar (List<G> lista){
-        return lista == null? 0: lista.size();
-    }
-
-    public void atualizarQuantidadeProfessores(Turma turma){
-        validarQuantidadeProfessores(turma);
-        turma.setQuantidadeProfessor(contar(turma.getProfessores()));
     }
 
     public void atualizarQuantidadeAlunos(Turma turma){
         validarQuantidadeAluno(turma);
-        turma.setQuantiaAluno(contar(turma.getAlunos()));
-    }
-
-    public void limparRelacoesBiderecionais(Turma turma){
-        turma.getAlunos().forEach(aluno -> aluno.setTurma(null));
-        turma.getAlunos().clear();
-
-        turma.getProfessores().forEach(prof -> prof.getTurmas().remove(turma));
-        turma.getProfessores().clear();
+        turma.setQuantiaAluno(turma.getAlunos() == null ? 0 : turma.getAlunos().size());
     }
 
     @Transactional
     public Turma updateTurma(Long id, Turma turmaAtualizada){
         Turma turmaExistente = readTurma(id);
 
-        limparRelacoesBiderecionais(turmaExistente);
+        turmaExistente.getAlunos().forEach(aluno -> aluno.setTurma(null));
+        turmaExistente.getAlunos().clear();
 
         if(turmaAtualizada.getAlunos() != null){
             turmaAtualizada.getAlunos().forEach(aluno ->{
@@ -100,20 +80,17 @@ public class TurmaService {
                 turmaExistente.getAlunos().add(aluno);
             });
         }
-        if(turmaAtualizada.getProfessores()!= null){
-            turmaAtualizada.getProfessores().forEach(prof ->{
-                turmaExistente.getProfessores().add(prof);
-                prof.getTurmas().add(turmaExistente);
-            });
-        }
+
+        turmaExistente.setProfessor(turmaAtualizada.getProfessor());
+        turmaExistente.setQuantidadeProfessor(turmaAtualizada.getProfessor() != null ? 1 : 0);
 
         //Calcula a quantidade
         atualizarQuantidadeAlunos(turmaExistente);
-        atualizarQuantidadeProfessores(turmaExistente);
 
         return turmaRepository.save(turmaExistente);
     }
 
+    //Salva turma
     @Transactional
     public void salvarTurma(Turma turma){
         turmaRepository.save(turma);
@@ -169,14 +146,9 @@ public class TurmaService {
         return turma.getAlunos() == null ? 0 : turma.getAlunos().size();
     }
 
-    //Pesquisa professor por id dentro da turma
-    @Transactional
-    public Professor pesquisarProfessorTurma(Long turmaId, Long professorId){
-        Turma turma = readTurma(turmaId);
-        return turma.getProfessores().stream() //stream - fluxo de dados que é criado a partir de uma coleção
-                .filter(professor -> professor.getId() == professorId)
-                .findFirst()
-                .orElseThrow(()-> new ResourceNotFoundException("Professor não encontrado nesta turma!"));
+    public int contarProfessor(Long turmaId){
+        Turma turma= readTurma(turmaId);
+        return turma.getProfessor() != null ? 1 : 0;
     }
 
 }
