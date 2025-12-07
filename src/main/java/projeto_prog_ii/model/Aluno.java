@@ -6,11 +6,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
-import java.util.List;
-
 @Data
 @Entity
-@Table(name = "Tb_Aluno")
+@Table(name = "Alunos")
 public class Aluno {
 
     @Id
@@ -30,11 +28,9 @@ public class Aluno {
     @DecimalMax(value = "10.0", message = "A média máxima é 10.")
     private double media;
 
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "turma_id")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Turma turma;
-
 }

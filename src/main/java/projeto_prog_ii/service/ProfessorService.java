@@ -3,7 +3,6 @@ package projeto_prog_ii.service;
 import org.springframework.stereotype.Service;
 import projeto_prog_ii.model.Professor;
 import projeto_prog_ii.repository.ProfessorRepository;
-
 import java.util.List;
 @Service
 public class ProfessorService {
