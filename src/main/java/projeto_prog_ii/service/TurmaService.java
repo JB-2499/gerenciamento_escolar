@@ -2,73 +2,132 @@ package projeto_prog_ii.service;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.BadRequestException;
 import org.springframework.stereotype.Service;
 import projeto_prog_ii.exception.ResourceNotFoundException;
 import projeto_prog_ii.model.Aluno;
+import projeto_prog_ii.model.Professor;
 import projeto_prog_ii.model.Turma;
 import projeto_prog_ii.repository.AlunoRepository;
+import projeto_prog_ii.repository.ProfessorRepository;
 import projeto_prog_ii.repository.TurmaRepository;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class TurmaService {
+
     //Injeção de dependência
     private final TurmaRepository turmaRepository;
-    //private final ProfessorRepository professorRepository;
+    private final ProfessorRepository professorRepository;
     private final AlunoRepository alunoRepository;
 
     //Verificação de existência
-    private Turma readTurma(Long id){//ok
+    private Turma readTurma(Long id){
         return turmaRepository.findById(id)
                 .orElseThrow(()-> new ResourceNotFoundException("Turma não encontrada!"));
     }
+
     //Criando turma
     public Turma createTurma(Turma turma){
+        //Ajustes com o relacionamento
         if (turma.getAlunos() != null){
             turma.getAlunos().forEach(aluno -> aluno.setTurma(turma));
         }
-        validarQuantidade(turma);
+        if (turma.getProfessores() != null){
+            turma.getProfessores().forEach(professor -> professor.getTurmas().add(turma));
+        }
+
+        atualizarQuantidadeAlunos(turma);
+        atualizarQuantidadeProfessores(turma);
+
         return turmaRepository.save(turma);
     }
-    private void validarQuantidade(Turma turma) {
+
+    //Lista todas as turmas
+    public List<Turma>listarTurmas(){
+        return turmaRepository.findAll();
+    }
+
+    //Busca por id
+    public Turma buscarTurma(Long id){
+        return readTurma(id);
+    }
+
+    private void validarQuantidadeAluno(Turma turma) {
         int quanti = turma.getAlunos() == null ? 0: turma.getAlunos().size();
         if (quanti < 20 || quanti > 40){
             throw new IllegalArgumentException("Quantidade invalida!");
         }
     }
-    //Lista todas as turmas
-    public List<Turma>listarTurmas(){
-        return turmaRepository.findAll();
+    private void validarQuantidadeProfessores(Turma turma) {
+        int total = turma.getProfessores() == null ? 0 : turma.getProfessores().size();
+        if (total < 1 || total > 4){
+            throw new IllegalArgumentException("Quantidade de Professores invalida!");
+        }
     }
-    //Busca por id
-    public Turma buscarTurma(Long id){
-        return readTurma(id);
+
+    private <G> int contar (List<G> lista){
+        return lista == null? 0: lista.size();
     }
+
+    public void atualizarQuantidadeProfessores(Turma turma){
+        validarQuantidadeProfessores(turma);
+        turma.setQuantidadeProfessor(contar(turma.getProfessores()));
+    }
+
+    public void atualizarQuantidadeAlunos(Turma turma){
+        validarQuantidadeAluno(turma);
+        turma.setQuantiaAluno(contar(turma.getAlunos()));
+    }
+
+    public void limparRelacoesBiderecionais(Turma turma){
+        turma.getAlunos().forEach(aluno -> aluno.setTurma(null));
+        turma.getAlunos().clear();
+
+        turma.getProfessores().forEach(prof -> prof.getTurmas().remove(turma));
+        turma.getProfessores().clear();
+    }
+
     @Transactional
     public Turma updateTurma(Long id, Turma turmaAtualizada){
         Turma turmaExistente = readTurma(id);
-        turmaExistente.getAlunos().clear();
 
-        if (turmaAtualizada.getAlunos()!= null){
-            for (Aluno aluno : turmaAtualizada.getAlunos()){
+        limparRelacoesBiderecionais(turmaExistente);
+
+        if(turmaAtualizada.getAlunos() != null){
+            turmaAtualizada.getAlunos().forEach(aluno ->{
                 aluno.setTurma(turmaExistente);
                 turmaExistente.getAlunos().add(aluno);
-            }
+            });
         }
-        turmaExistente.setQuantiaAluno(turmaExistente.getAlunos().size()); //atenção
-        validarQuantidade(turmaExistente);
+        if(turmaAtualizada.getProfessores()!= null){
+            turmaAtualizada.getProfessores().forEach(prof ->{
+                turmaExistente.getProfessores().add(prof);
+                prof.getTurmas().add(turmaExistente);
+            });
+        }
+
+        //Calcula a quantidade
+        atualizarQuantidadeAlunos(turmaExistente);
+        atualizarQuantidadeProfessores(turmaExistente);
+
         return turmaRepository.save(turmaExistente);
     }
+
+    @Transactional
+    public void salvarTurma(Turma turma){
+        turmaRepository.save(turma);
+    }
+
     //Deletar turma
     @Transactional
-    public void deleteTurma(Long id){//ok
+    public void deleteTurma(Long id){
         Turma turma = readTurma(id);
         turmaRepository.delete(turma);
     }
+
     //Calcula média geral da turma
-    public double calcularMediaTurma(Long turmaId) {//ok
+    public double calcularMediaTurma(Long turmaId) {
         Turma turma = readTurma(turmaId);
         List<Aluno> alunos = turma.getAlunos();
 
@@ -80,6 +139,7 @@ public class TurmaService {
                 .sum();
         return soma / alunos.size();
     }
+
     //Atualiza a quantidade de alunos
     @Transactional
     public void atualizarQuantiAluno(Long turmaId){
@@ -92,9 +152,10 @@ public class TurmaService {
         turma.setQuantiaAluno(total);
         turmaRepository.save(turma);
     }
+
     //Pesquisa aluno por id dentro da turma
     @Transactional
-    public Aluno searchAlunoTurma(Long turmaId, Long alunoId){ //ok
+    public Aluno searchAlunoTurma(Long turmaId, Long alunoId){
         Turma turma = readTurma(turmaId);
 
         return turma.getAlunos().stream() //stream - fluxo de dados que é criado a partir de uma coleção
@@ -102,20 +163,20 @@ public class TurmaService {
                 .findFirst()
                 .orElseThrow(()-> new ResourceNotFoundException("Aluno não identificado nesta turma!"));
     }
-    public int contarAlunos(Long turmaId){ //ok
+
+    public int contarAlunos(Long turmaId){
         Turma turma= readTurma(turmaId);
         return turma.getAlunos() == null ? 0 : turma.getAlunos().size();
     }
-    /*
+
     //Pesquisa professor por id dentro da turma
     @Transactional
     public Professor pesquisarProfessorTurma(Long turmaId, Long professorId){
-        Turma turma = verificarTurma(turmaId);
-        //Se atentar ao relacionamento - corrigir para professores ápos o merge com Felipe
-        return turma.getProfessor().stream() //stream - fluxo de dados que é criado a partir de uma coleção
-                .filter(professor -> professor.getId().equals(professorId))
+        Turma turma = readTurma(turmaId);
+        return turma.getProfessores().stream() //stream - fluxo de dados que é criado a partir de uma coleção
+                .filter(professor -> professor.getId() == professorId)
                 .findFirst()
-                .orElseThrow(()-> new ResourceNotFoundException("Professor não identificado nesta turma!"));
-    }*/
+                .orElseThrow(()-> new ResourceNotFoundException("Professor não encontrado nesta turma!"));
+    }
 
 }
