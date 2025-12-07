@@ -1,17 +1,25 @@
 package projeto_prog_ii.model;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerator;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.*;
 import jakarta.validation.constraints.*;
+
+import java.util.List;
+
 @Data
 @Entity
 @Table(name = "Tb_Professor")
-
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class Professor {
 
-  /* @ManyToMany(mappedBy = "professores")
+   @OneToMany(mappedBy = "professor", cascade = CascadeType.ALL)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private List<Turma> turmas;*/
+    private List<Turma> turmas;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
