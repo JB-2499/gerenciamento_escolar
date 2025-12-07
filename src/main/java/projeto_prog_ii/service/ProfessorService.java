@@ -25,7 +25,7 @@ public class ProfessorService {
         return professorRepository.findAll();
     }
 
-    public Professor UpdateProfessores(Long id, Professor professorAtualizado) {
+    public Professor updateProfessores(Long id, Professor professorAtualizado) {
         Professor existente = professorRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Professor não encontrado"));
 

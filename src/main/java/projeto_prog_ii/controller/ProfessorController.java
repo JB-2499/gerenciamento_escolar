@@ -32,7 +32,7 @@ public class ProfessorController {
 
     @PutMapping("/{id}")
     public Professor updateProfessor(@PathVariable Long id, @Valid @RequestBody Professor professor) {
-        return service.UpdateProfessores(id, professor);
+        return service.updateProfessores(id, professor);
     }
 
     @DeleteMapping("/{id}")
