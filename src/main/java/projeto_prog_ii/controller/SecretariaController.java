@@ -21,4 +21,32 @@ public class SecretariaController {
             @PathVariable long alunoId){
         return ResponseEntity.ok(secretariaService.matricularAluno(turmaId, alunoId));
     }
+
+    @PostMapping("/transferir/{alunoId}/{origem}/{destino}")
+    public ResponseEntity<String> transferir(
+            @PathVariable long alunoId,
+            @PathVariable long orige,
+            @PathVariable long destino){
+        return ResponseEntity.ok(secretariaService.transferirAluno(alunoId, orige, destino));
+    }
+
+    @PostMapping("/atribuir_Prof/{turmaId}/{professorId}")
+    public ResponseEntity<Turma> atribuirProfessor(
+            @PathVariable long turmaId,
+            @PathVariable long profesaorId){
+        return ResponseEntity.ok(secretariaService.atribuirProf(turmaId, profesaorId));
+    }
+
+    @PostMapping("/trocar_Prof/{turmaId}/{professorId}")
+    public ResponseEntity<Turma> trocarProfessor(
+            @PathVariable long turmaId,
+            @PathVariable long professorId){
+        return ResponseEntity.ok(secretariaService.trocarProfessor(turmaId, professorId));
+    }
+
+    @PostMapping("/romover_Prof/{turmaId}")
+    public ResponseEntity<Turma> removerProfessor(
+            @PathVariable long turmaId){
+        return ResponseEntity.ok(secretariaService.removerProf(turmaId));
+    }
 }
