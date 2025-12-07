@@ -37,9 +37,6 @@ public class Aluno {
     /*
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "turma_id")
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    @JsonBackReference
     private Turma turma;
     */
 }
