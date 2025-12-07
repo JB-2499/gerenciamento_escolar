@@ -5,8 +5,6 @@ import org.springframework.stereotype.Service;
 import projeto_prog_ii.exception.ResourceNotFoundException;
 import projeto_prog_ii.model.Aluno;
 import projeto_prog_ii.repository.AlunoRepository;
-
-
 import java.util.*;
 
 @RequiredArgsConstructor
