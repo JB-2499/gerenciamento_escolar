@@ -68,7 +68,7 @@ Sinta-se à vontade para sugerir melhorias, reportar *bugs* ou contribuir com c�
 4.  Faça o *push* para a *branch* (`git push origin feature/minha-nova-feature`).
 5.  Abra um *Pull Request*.
 
-## 🧑‍💻 Autor
+## 🧑‍💻 Autores
 
 Este projeto foi desenvolvido por:
 
