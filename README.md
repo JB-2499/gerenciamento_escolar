@@ -17,11 +17,9 @@ O sistema permite a gestão das seguintes entidades:
 * **Alunos:** Registro completo dos estudantes, incluindo sua alocação em turmas.
 * **Professores:** Cadastro e informações dos docentes.
 
-*(Se houver mais funcionalidades específicas, como atribuição de notas, horários ou relatórios, adicione-as aqui.)*
-
 ## 🛠️ Tecnologias Utilizadas
 
-* **Linguagem de Programação:** Java
+* **Linguagem de Programação:** Java (Versão estável 21)
 * **Sistema de Build:** Gradle
 
 ## 🚀 Como Executar o Projeto
@@ -74,7 +72,10 @@ Sinta-se à vontade para sugerir melhorias, reportar *bugs* ou contribuir com c�
 
 Este projeto foi desenvolvido por:
 
-* **JB-2499** - ([Perfil do GitHub](https://github.com/JB-2499))
+* **Felipe Feliciano** - ([Perfil do GitHub](https://github.com/FelipeFelicianoLopes))
+* **Ediene Gomes** - ([Perfil do GitHub](https://github.com/edienegomes))
+* **João Barreto** - ([Perfil do GitHub](https://github.com/JB-2499))
+* **Lucas Albuquerque** - ([Perfil do GitHub](https://github.com/lucas-allb))
 
 ## 📄 Licença
 
