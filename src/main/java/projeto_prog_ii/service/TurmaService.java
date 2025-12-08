@@ -56,7 +56,7 @@ public class TurmaService {
 
     private void validarQuantidadeAluno(Turma turma) {
         int quanti = turma.getAlunos() == null ? 0: turma.getAlunos().size();
-        if (quanti < 10 || quanti > 40){
+        if (quanti < 20 || quanti > 40){
             throw new IllegalArgumentException("Quantidade de alunos invalida!");
         }
     }
