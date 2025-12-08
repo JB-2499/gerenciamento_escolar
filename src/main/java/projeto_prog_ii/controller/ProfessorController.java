@@ -15,19 +15,19 @@ public class ProfessorController {
         this.service = service;
     }
 
-    @GetMapping
-    public List<Professor> readAllProfessor() {
-        return service.readAllProfessores();
-    }
-
-    @GetMapping("/{id}")
-    public Professor readProfessor(@PathVariable long id) {
-        return service.readProfessores(id);
-    }
-
     @PostMapping
     public Professor createProfessor(@Valid @RequestBody Professor professor) {
         return service.createProfessores(professor);
+    }
+
+    //Owerload
+    @GetMapping
+    public List<Professor> readProfessor() {
+        return service.readProfessores();
+    }
+    @GetMapping("/{id}")
+    public Professor readProfessor(@PathVariable long id) {
+        return service.readProfessores(id);
     }
 
     @PutMapping("/{id}")
@@ -39,5 +39,5 @@ public class ProfessorController {
     public void deleteProfessor(@PathVariable Long id) {
         service.delete(id);
     }
-
+//CRUD
 }
