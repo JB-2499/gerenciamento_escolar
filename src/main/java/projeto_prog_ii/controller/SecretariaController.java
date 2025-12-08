@@ -33,8 +33,8 @@ public class SecretariaController {
     @PostMapping("/atribuir_Prof/{turmaId}/{professorId}")
     public ResponseEntity<Turma> atribuirProfessor(
             @PathVariable long turmaId,
-            @PathVariable long profesorId){
-        return ResponseEntity.ok(secretariaService.atribuirProf(turmaId, profesorId));
+            @PathVariable long professorId){
+        return ResponseEntity.ok(secretariaService.atribuirProf(turmaId, professorId));
     }
 
     @PostMapping("/trocar_Prof/{turmaId}/{professorId}")
