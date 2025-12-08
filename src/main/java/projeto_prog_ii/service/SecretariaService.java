@@ -31,13 +31,14 @@ public class SecretariaService {
     }
 
     public String transferirAluno(long alunoId, Long turmaOrigemId, long turmaDestinoId){
-        Turma origem = turmaService.buscarTurma(turmaOrigemId);
-        Turma destino = turmaService.buscarTurma(turmaDestinoId);
-        Aluno aluno = alunoService.readAluno(alunoId);
 
         if (turmaOrigemId.equals(turmaDestinoId)){
             throw new IllegalArgumentException("Para transferir, a turma de origem não pode ser a mesma de destino");
         }
+
+        Turma origem = turmaService.buscarTurma(turmaOrigemId);
+        Turma destino = turmaService.buscarTurma(turmaDestinoId);
+        Aluno aluno = alunoService.readAluno(alunoId);
 
         if (!origem.getAlunos().remove(aluno)){
             throw new ResourceNotFoundException("Este aluno não estava na turma de origem");
@@ -45,9 +46,6 @@ public class SecretariaService {
 
         destino.getAlunos().add(aluno);
         aluno.setTurma(destino);
-
-        turmaService.updateTurma(origem.getId(), origem);
-        turmaService.updateTurma(origem.getId(), destino);
 
         turmaService.updateTurma(origem.getId(), origem);
         turmaService.updateTurma(destino.getId(), destino);
@@ -59,27 +57,44 @@ public class SecretariaService {
         Turma turma = turmaService.buscarTurma(turmaId);
         Professor professor = professorService.readProfessores(professorId);
 
-        if (turma.getProfessores().contains(professor)){
-            throw new IllegalArgumentException("Esse professor já está inserido nessa turma");
+        if (turma.getProfessor() != null){
+            throw new IllegalArgumentException("A turma já possui um professor");
         }
 
-        turma.getProfessores().add(professor);
-        professor.getTurmas().add(turma);
-        turmaService.atualizarQuantidadeProfessores(turma);
+        turma.setProfessor(professor);
+        turma.setQuantidadeProfessor(1);
+
+        turmaService.salvarTurma(turma);
+        return turma;
+
+    }
+
+    public Turma trocarProfessor(long turmaId, long novoprofessorId){
+        Turma turma = turmaService.buscarTurma(turmaId);
+        Professor professor = professorService.readProfessores(novoprofessorId);
+
+        Professor antigo = turma.getProfessor();
+
+        if (antigo != null && antigo.getId() == novoprofessorId){
+            throw new IllegalArgumentException("O novo professor já era o existente");
+        }
+
+        turma.setProfessor(professor);
+        turma.setQuantidadeProfessor(1);
+
         turmaService.salvarTurma(turma);
 
         return turma;
     }
 
-    public Turma createTurma(Turma turma){
-        return turmaService.createTurma(turma);
-    }
+    public Turma removerProf(long turmaId){
+        Turma turma = turmaService.buscarTurma(turmaId);
 
-    public void deleteTurma(Long id){
-        turmaService.deleteTurma(id);
-    }
+        turma.setProfessor(null);
+        turma.setQuantidadeProfessor(0);
 
-    public int contarAlunosTurma(Long turmaId){
-        return turmaService.contarAlunos(turmaId);
+        turmaService.salvarTurma(turma);
+
+        return turma;
     }
 }
