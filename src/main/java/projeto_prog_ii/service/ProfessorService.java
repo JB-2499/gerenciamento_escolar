@@ -1,5 +1,6 @@
 package projeto_prog_ii.service;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import projeto_prog_ii.exception.ResourceNotFoundException;
@@ -39,7 +40,10 @@ public class ProfessorService {
         return professorRepository.save(existente);
     }
 
+    @Transactional
     public void delete(Long id) {
-        professorRepository.delete(buscarPorId(id));
+        Professor professor = buscarPorId(id);
+        professor.getTurmas().forEach(turma -> turma.setProfessor(null));
+        professorRepository.delete(professor);
     }
 }

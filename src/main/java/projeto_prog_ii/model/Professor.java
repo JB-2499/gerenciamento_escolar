@@ -27,7 +27,7 @@ public class Professor {
     @Max(value = 70, message = "A idade máxima é 70.")
     private int idade;
 
-    @OneToMany(mappedBy = "professor", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "professor")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private List<Turma> turmas = new ArrayList<>();
