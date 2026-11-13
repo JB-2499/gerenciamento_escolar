@@ -20,6 +20,6 @@ public class AlunoMapper {
     public AlunoResponseDTO toResponse(Aluno aluno) {
         Long turmaId = aluno.getTurma() != null ? aluno.getTurma().getId() : null;
         return new AlunoResponseDTO(aluno.getId(), aluno.getNome(), aluno.getIdade(),
-                aluno.getEstado(), aluno.getMedia(), turmaId);
+                aluno.isEstado(), aluno.getMedia(), turmaId);
     }
 }

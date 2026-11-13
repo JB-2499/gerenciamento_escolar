@@ -37,7 +37,7 @@ public class AlunoService {
         aluno.setNome(novosDados.getNome());
         aluno.setIdade(novosDados.getIdade());
         aluno.setMedia(novosDados.getMedia());
-        aluno.setEstado(novosDados.getEstado());
+        aluno.setEstado(novosDados.isEstado());
 
         return alunoRepository.save(aluno);
     }
