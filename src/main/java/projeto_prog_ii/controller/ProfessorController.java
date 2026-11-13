@@ -1,43 +1,54 @@
 package projeto_prog_ii.controller;
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import projeto_prog_ii.dto.ProfessorRequestDTO;
+import projeto_prog_ii.dto.ProfessorResponseDTO;
+import projeto_prog_ii.mapper.ProfessorMapper;
 import projeto_prog_ii.model.Professor;
 import projeto_prog_ii.service.ProfessorService;
+
+import java.net.URI;
 import java.util.List;
 
+@RequiredArgsConstructor
 @RestController
-@RequestMapping("/Tb_Professor")
+@RequestMapping("/professores")
 public class ProfessorController {
 
-    private final ProfessorService service;
-    public ProfessorController(ProfessorService service) {
-        this.service = service;
-    }
+    private final ProfessorService professorService;
+    private final ProfessorMapper professorMapper;
 
     @GetMapping
-    public List<Professor> readAllProfessor() {
-        return service.readAllProfessores();
+    public ResponseEntity<List<ProfessorResponseDTO>> getProfessor() {
+        return ResponseEntity.ok(
+                professorService.getProfessores().stream().map(professorMapper::toResponse).toList());
     }
 
     @GetMapping("/{id}")
-    public Professor readProfessor(@PathVariable long id) {
-        return service.readProfessores(id);
+    public ResponseEntity<ProfessorResponseDTO> getProfessor(@PathVariable Long id) {
+        return ResponseEntity.ok(professorMapper.toResponse(professorService.getProfessor(id)));
     }
 
     @PostMapping
-    public Professor createProfessor(@Valid @RequestBody Professor professor) {
-        return service.createProfessores(professor);
+    public ResponseEntity<ProfessorResponseDTO> createProfessor(@Valid @RequestBody ProfessorRequestDTO request) {
+        Professor novo = professorService.createProfessores(professorMapper.toEntity(request));
+        return ResponseEntity.created(URI.create("/professores/" + novo.getId()))
+                .body(professorMapper.toResponse(novo));
     }
 
     @PutMapping("/{id}")
-    public Professor updateProfessor(@PathVariable Long id, @Valid @RequestBody Professor professor) {
-        return service.updateProfessores(id, professor);
+    public ResponseEntity<ProfessorResponseDTO> updateProfessor(@PathVariable Long id,
+                                                                @Valid @RequestBody ProfessorRequestDTO request) {
+        Professor atualizado = professorService.updateProfessores(id, professorMapper.toEntity(request));
+        return ResponseEntity.ok(professorMapper.toResponse(atualizado));
     }
 
     @DeleteMapping("/{id}")
-    public void deleteProfessor(@PathVariable Long id) {
-        service.delete(id);
+    public ResponseEntity<Void> deleteProfessor(@PathVariable Long id) {
+        professorService.delete(id);
+        return ResponseEntity.noContent().build();
     }
-
 }
