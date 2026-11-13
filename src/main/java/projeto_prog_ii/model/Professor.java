@@ -16,7 +16,7 @@ public class Professor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @NotBlank(message = "O nome não pode estar vazio.")
     private String nome;
