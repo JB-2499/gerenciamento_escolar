@@ -40,8 +40,7 @@ public class ProfessorController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProfessorResponseDTO> updateProfessor(@PathVariable Long id,
-                                                                @Valid @RequestBody ProfessorRequestDTO request) {
+    public ResponseEntity<ProfessorResponseDTO> updateProfessor(@PathVariable Long id, @Valid @RequestBody ProfessorRequestDTO request) {
         Professor atualizado = professorService.updateProfessores(id, professorMapper.toEntity(request));
         return ResponseEntity.ok(professorMapper.toResponse(atualizado));
     }
