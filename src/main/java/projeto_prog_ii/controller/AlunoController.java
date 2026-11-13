@@ -11,7 +11,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/Tb_Aluno")
+@RequestMapping("/alunos")
 public class AlunoController {
 
     private final AlunoService alunoService;
@@ -20,18 +20,18 @@ public class AlunoController {
     public ResponseEntity<Aluno> createAluno(@Valid @RequestBody Aluno aluno) {
         Aluno novoAluno = alunoService.createAluno(aluno);
 
-        return ResponseEntity.created(URI.create("/Tb_Aluno" + novoAluno.getId())).body(novoAluno);
+        return ResponseEntity.created(URI.create("/alunos" + novoAluno.getId())).body(novoAluno);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Aluno> readAluno(@PathVariable Long id) {
-        Aluno aluno = alunoService.readAluno(id);
+    public ResponseEntity<Aluno> getAluno(@PathVariable Long id) {
+        Aluno aluno = alunoService.getAluno(id);
         return ResponseEntity.ok(aluno);
     }
 
     @GetMapping
-    public ResponseEntity<List<Aluno>> readAluno() {
-        return ResponseEntity.ok(alunoService.readAluno());
+    public ResponseEntity<List<Aluno>> getAluno() {
+        return ResponseEntity.ok(alunoService.getAluno());
     }
 
     @PutMapping("/{id}")

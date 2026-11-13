@@ -8,10 +8,8 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "Tb_Aluno")
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
+@Table(name = "alunos")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Aluno {
 
     @Id
@@ -21,11 +19,11 @@ public class Aluno {
     @NotBlank(message = "O nome não pode estar vazio.")
     private String nome;
 
-    @Min(value = 10, message = "A idade mínima é 10.")
-    @Max(value = 18, message = "A idade máxima é 18.")
+    @Min(value = 8, message = "A idade mínima é 8 anos.")
+    @Max(value = 20, message = "A idade máxima é 20 anos.")
     private int idade;
 
-    private boolean estado;
+    private Boolean estado;
 
     @DecimalMin(value = "0.0", message = "A média mínima é 0.")
     @DecimalMax(value = "10.0", message = "A média máxima é 10.")

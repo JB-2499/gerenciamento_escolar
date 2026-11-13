@@ -24,16 +24,16 @@ public class AlunoService {
             aluno.setNome(novosDados.getNome());
             aluno.setIdade(novosDados.getIdade());
             aluno.setMedia(novosDados.getMedia());
-            aluno.setEstado(novosDados.isEstado());
+            aluno.setEstado(novosDados.getEstado());
 
             alunoRepository.save(aluno);
     }
 
-    public Aluno readAluno(Long id) {
+    public Aluno getAluno(Long id) {
         return alunoRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Mensagem interna, não visível ao usuário."));
     }
 
-    public List<Aluno> readAluno() {
+    public List<Aluno> getAluno() {
         return alunoRepository.findAll();
     }
 

@@ -16,7 +16,7 @@ public class SecretariaService {
 
     public Turma matricularAluno(long turmaId, long alunoId){
         Turma turma = turmaService.buscarTurma(turmaId);
-        Aluno aluno = alunoService.readAluno(alunoId);
+        Aluno aluno = alunoService.getAluno(alunoId);
 
         if (turma.getAlunos().contains(aluno)){
             throw new IllegalArgumentException("Aluno já cadastrado nessa turma");
@@ -38,7 +38,7 @@ public class SecretariaService {
 
         Turma origem = turmaService.buscarTurma(turmaOrigemId);
         Turma destino = turmaService.buscarTurma(turmaDestinoId);
-        Aluno aluno = alunoService.readAluno(alunoId);
+        Aluno aluno = alunoService.getAluno(alunoId);
 
         if (!origem.getAlunos().remove(aluno)){
             throw new ResourceNotFoundException("Este aluno não estava na turma de origem");

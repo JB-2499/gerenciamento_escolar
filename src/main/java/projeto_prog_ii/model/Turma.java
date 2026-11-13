@@ -13,7 +13,7 @@ import java.util.List;
 
 @Data
 @Entity
-@Table (name = "Tb_Turma")
+@Table (name = "turmas")
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id")
@@ -23,21 +23,17 @@ public class Turma {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message="O nome não pode estar vazio!")
+    @NotBlank(message="O nome não pode estar vazio.")
     private String nome;
 
-    @Min(value = 20, message = "A quantidade mínima é 20 alunos por turma.")
-    @Max(value = 40, message = "A quantidade máxima é 40 alunos por turma.")
+    @Max(value = 40, message = "A quantidade máxima é de 40 alunos por turma.")
     private int quantiaAluno;
     private int quantidadeProfessor;
 
-    //Tipo de relacionamento com a classe professor
     @ManyToOne (fetch = FetchType.EAGER)
     @JoinColumn(name = "professor_id")
-
     private Professor professor;
 
-    //Tipo de relacionamento com a classe aluno
     @OneToMany(mappedBy = "turma", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
     @JsonManagedReference

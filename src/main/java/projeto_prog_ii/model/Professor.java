@@ -10,10 +10,8 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name = "Tb_Professor")
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
+@Table(name = "professores")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Professor {
 
     @Id
@@ -23,11 +21,10 @@ public class Professor {
     @NotBlank(message = "O nome não pode estar vazio.")
     private String nome;
 
-    @NotBlank(message = "A matéria não pode estar vazia.")
     private String materia;
 
-    @Min(value = 22, message = "A idade mínima é 22.")
-    @Max(value = 99, message = "A idade máxima é 99.")
+    @Min(value = 20, message = "A idade mínima é 20.")
+    @Max(value = 70, message = "A idade máxima é 70.")
     private int idade;
 
     @OneToMany(mappedBy = "professor", cascade = CascadeType.ALL)
