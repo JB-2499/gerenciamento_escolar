@@ -23,7 +23,7 @@ public class Aluno {
     @Max(value = 20, message = "A idade máxima é 20 anos.")
     private int idade;
 
-    private Boolean estado;
+    private boolean estado;
 
     @DecimalMin(value = "0.0", message = "A média mínima é 0.")
     @DecimalMax(value = "10.0", message = "A média máxima é 10.")
