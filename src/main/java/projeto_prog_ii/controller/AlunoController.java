@@ -4,8 +4,12 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import projeto_prog_ii.dto.AlunoRequestDTO;
+import projeto_prog_ii.dto.AlunoResponseDTO;
+import projeto_prog_ii.mapper.AlunoMapper;
 import projeto_prog_ii.model.Aluno;
 import projeto_prog_ii.service.AlunoService;
+
 import java.net.URI;
 import java.util.List;
 
@@ -15,34 +19,34 @@ import java.util.List;
 public class AlunoController {
 
     private final AlunoService alunoService;
+    private final AlunoMapper alunoMapper;
 
     @PostMapping
-    public ResponseEntity<Aluno> createAluno(@Valid @RequestBody Aluno aluno) {
-        Aluno novoAluno = alunoService.createAluno(aluno);
-
-        return ResponseEntity.created(URI.create("/alunos" + novoAluno.getId())).body(novoAluno);
+    public ResponseEntity<AlunoResponseDTO> createAluno(@Valid @RequestBody AlunoRequestDTO request) {
+        Aluno novo = alunoService.createAluno(alunoMapper.toEntity(request));
+        return ResponseEntity.created(URI.create("/alunos/" + novo.getId())).body(alunoMapper.toResponse(novo));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Aluno> getAluno(@PathVariable Long id) {
-        Aluno aluno = alunoService.getAluno(id);
-        return ResponseEntity.ok(aluno);
+    public ResponseEntity<AlunoResponseDTO> getAluno(@PathVariable Long id) {
+        return ResponseEntity.ok(alunoMapper.toResponse(alunoService.getAluno(id)));
     }
 
     @GetMapping
-    public ResponseEntity<List<Aluno>> getAluno() {
-        return ResponseEntity.ok(alunoService.getAluno());
+    public ResponseEntity<List<AlunoResponseDTO>> getAlunos() {
+        return ResponseEntity.ok(alunoService.getAlunos().stream().map(alunoMapper::toResponse).toList());
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateAluno(@PathVariable Long id, @Valid @RequestBody Aluno aluno) {
-        alunoService.updateAluno(id, aluno);
-        return ResponseEntity.ok("Dados do aluno atualizados com sucesso!");
+    public ResponseEntity<AlunoResponseDTO> updateAluno(@PathVariable Long id,
+                                                        @Valid @RequestBody AlunoRequestDTO request) {
+        Aluno atualizado = alunoService.updateAluno(id, alunoMapper.toEntity(request));
+        return ResponseEntity.ok(alunoMapper.toResponse(atualizado));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteAluno(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteAluno(@PathVariable Long id) {
         alunoService.deleteAluno(id);
-        return ResponseEntity.ok("Aluno removido com sucesso!");
+        return ResponseEntity.noContent().build();
     }
 }
