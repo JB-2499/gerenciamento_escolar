@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import projeto_prog_ii.exception.BusinessRuleException;
 import projeto_prog_ii.exception.ConflictException;
+import projeto_prog_ii.matricula.RegrasMatricula;
 import projeto_prog_ii.model.Aluno;
 import projeto_prog_ii.model.Professor;
 import projeto_prog_ii.model.Turma;
@@ -14,7 +15,7 @@ import projeto_prog_ii.model.Turma;
 @RequiredArgsConstructor
 public class SecretariaService {
 
-    private static final int CAPACIDADE_MAXIMA = 40;
+    private final RegrasMatricula regrasMatricula;
 
     private final TurmaService turmaService;
     private final ProfessorService professorService;
@@ -24,27 +25,16 @@ public class SecretariaService {
         Turma turma = turmaService.buscarTurma(turmaId);
         Aluno aluno = alunoService.getAluno(alunoId);
 
-        if (aluno.getTurma() != null) {
-            if (aluno.getTurma().getId().equals(turmaId)) {
-                throw new ConflictException("O aluno já está matriculado nessa turma.");
-            }
-            throw new ConflictException(
-                    "O aluno já está matriculado em outra turma. Use a transferência.");
-        }
-        if (turma.getQuantidadeAlunos() >= CAPACIDADE_MAXIMA) {
-            throw new BusinessRuleException(
-                    "A turma está lotada (máximo de " + CAPACIDADE_MAXIMA + " alunos).");
-        }
+        regrasMatricula.validarMatricula(aluno, turma);
 
-        aluno.setTurma(turma);          // lado dono: é isso que grava no banco
-        turma.getAlunos().add(aluno);   // mantém a lista em memória coerente para a resposta
+        aluno.setTurma(turma);
+        turma.getAlunos().add(aluno);
         return turma;
     }
 
     public String transferirAluno(long alunoId, long turmaOrigemId, long turmaDestinoId) {
         if (turmaOrigemId == turmaDestinoId) {
-            throw new BusinessRuleException(
-                    "A turma de origem não pode ser a mesma de destino.");
+            throw new BusinessRuleException("A turma de origem não pode ser a mesma de destino.");
         }
 
         Turma origem = turmaService.buscarTurma(turmaOrigemId);
@@ -54,10 +44,7 @@ public class SecretariaService {
         if (aluno.getTurma() == null || !aluno.getTurma().getId().equals(turmaOrigemId)) {
             throw new BusinessRuleException("Este aluno não está na turma de origem.");
         }
-        if (destino.getQuantidadeAlunos() >= CAPACIDADE_MAXIMA) {
-            throw new BusinessRuleException(
-                    "A turma de destino está lotada (máximo de " + CAPACIDADE_MAXIMA + " alunos).");
-        }
+        regrasMatricula.validarTransferencia(aluno, destino);
 
         aluno.setTurma(destino);
         origem.getAlunos().removeIf(a -> a.getId().equals(alunoId));
