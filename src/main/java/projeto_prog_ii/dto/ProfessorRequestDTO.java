@@ -9,6 +9,6 @@ public record ProfessorRequestDTO(
         @NotBlank(message = "A matéria não pode estar vazia.")
         String materia,
 
-        @Min(value = 22, message = "A idade mínima é 22.")
-        @Max(value = 99, message = "A idade máxima é 99.")
+        @Min(value = 20, message = "A idade mínima é 20.")
+        @Max(value = 70, message = "A idade máxima é 70.")
         int idade) {}

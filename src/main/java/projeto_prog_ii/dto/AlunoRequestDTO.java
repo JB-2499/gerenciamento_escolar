@@ -6,8 +6,8 @@ public record AlunoRequestDTO(
         @NotBlank(message = "O nome não pode estar vazio.")
         String nome,
 
-        @Min(value = 10, message = "A idade mínima é 10.")
-        @Max(value = 18, message = "A idade máxima é 18.")
+        @Min(value = 8, message = "A idade mínima é 8.")
+        @Max(value = 20, message = "A idade máxima é 20.")
         int idade,
 
         boolean estado,
